@@ -12,7 +12,7 @@ import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
 
-if(localStorage.token) {
+if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
@@ -22,17 +22,18 @@ const App = () => {
   }, []);
 
   return (
-  <Provider store={store}>
-  <Router>
-    <Fragment>
-      <Navbar />
-      <Switch>
-        <Route exact path='/' component={Landing} />
-        <Route component={Routes} />
-      </Switch>
-    </Fragment>
-  </Router>
-  </Provider>
-)};
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route component={Routes} />
+          </Switch>
+        </Fragment>
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;
