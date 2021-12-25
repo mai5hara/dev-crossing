@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './component/layout/Navbar';
 import Landing from './component/layout/Landing';
 import Routes from './component/routing/Routes';
+import 'antd/dist/antd.css';
 
 // Redux
 import { Provider } from 'react-redux';

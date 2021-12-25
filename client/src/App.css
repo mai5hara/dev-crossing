@@ -1,14 +1,13 @@
 /* Global Styles */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --primary-color: #17a2b8;
+  --primary-color: #372772;
+  --secondary-color: #d3146df6;
   --dark-color: #343a40;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+  --border-primary: #dbdbdb;
+  --gray-scale1: #f1f1f1;
 }
 
 * {
@@ -23,6 +22,19 @@ body {
   line-height: 1.6;
   background-color: #fff;
   color: #333;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+ul,
+p {
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -303,7 +315,7 @@ button {
 }
 
 /* Navbar */
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -332,7 +344,7 @@ button {
 
 .navbar .welcome span {
   margin-right: 0.6rem;
-}
+} */
 
 /* Landing Page */
 .landing {

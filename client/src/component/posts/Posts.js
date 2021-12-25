@@ -1,24 +1,45 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React, { Fragment, useEffect, useState } from 'react';
+import { Row, Button, Tabs } from 'antd';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
+import PostModal from './PostAddModal';
 import { getPosts } from '../../actions/post';
-import PostForm from './PostForm';
+import { PlusOutlined } from '@ant-design/icons';
+import { addButton, postWrap, tabWrap, postsWrap } from './posts.style';
 
-const categoryList = ['all', 'front-end', 'back-end', 'design', 'other'];
+const categoryList = ['all posts', 'front-end', 'back-end', 'design', 'other'];
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {
   const [currentFilter, setCurrentFilter] = useState('all');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { TabPane } = Tabs;
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
 
   const handleChange = (newFilter) => {
     setCurrentFilter(newFilter);
+    console.log(newFilter);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   const filterPosts = posts
     ? posts.filter((post) => {
         switch (currentFilter) {
-          case 'all':
+          case 'all posts':
             return true;
           case 'front-end':
           case 'back-end':
@@ -38,25 +59,40 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
   return loading ? (
     <Spinner />
   ) : (
-    <Fragment>
+    <div css={postsWrap}>
       <h1 className="large text-primary">Posts</h1>
       <p className="lead">
         <i className="fas fa-user"></i> Welcome to the community
       </p>
-      <PostForm />
-      <ul>
-        {categoryList.map((f) => (
-          <li key={f} onClick={() => handleChange(f)}>
-            {f}
-          </li>
-        ))}
-      </ul>
-      <div className="posts">
+      <Button
+        css={addButton}
+        shape="round"
+        icon={<PlusOutlined />}
+        onClick={showModal}
+      >
+        Add Comment
+      </Button>
+      <PostModal
+        isModalVisible={isModalVisible}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        setIsModalVisible={setIsModalVisible}
+      />
+      <div css={tabWrap}>
+        <Tabs defaultActiveKey="1" centered onChange={handleChange}>
+          {categoryList.map((f) => (
+            <TabPane tab={f} key={f}>
+              {f}
+            </TabPane>
+          ))}
+        </Tabs>
+      </div>
+      <Row gutter={[16, 16]} css={postWrap}>
         {filterPosts.map((post) => (
           <PostItem key={post._id} post={post} />
         ))}
-      </div>
-    </Fragment>
+      </Row>
+    </div>
   );
 };
 
