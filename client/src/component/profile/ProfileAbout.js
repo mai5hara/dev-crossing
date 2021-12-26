@@ -1,5 +1,13 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { Card, Button } from 'antd';
+import {
+  bioWrap,
+  skillsWrap,
+  profileAboutItem,
+  profileAbout,
+} from './ProfileAbout.style';
 
 const ProfileAbout = ({
   profile: {
@@ -9,26 +17,32 @@ const ProfileAbout = ({
   },
 }) => {
   return (
-    <div className="profile-about bg-light p-2">
+    <div css={profileAbout}>
       {bio && (
-        <Fragment>
-          <h2 className="text-primary">{name.trim().split(' ')[0]}'s Bio</h2>
-          <p>{bio}</p>
-        </Fragment>
-      )}
-      <div className="line"></div>
-      <h2 className="text-primary">Skill Set</h2>
-      <div className="skills">
-        {skills.map((skill, index) => (
-          <div key={index} className="p-1">
-            <i className="fas fa-check"></i> {skill}
+        <Card>
+          <div css={bioWrap}>
+            <h2>{name.trim().split(' ')[0]}'s Bio</h2>
+            <p>{bio}</p>
           </div>
-        ))}
-      </div>
+        </Card>
+      )}
+      <Card css={profileAboutItem}>
+        <div css={skillsWrap}>
+          <h2>Skill Set</h2>
+          <div>
+            {skills.map((skill, index) => (
+              <Button shape="round" key={index}>
+                <span>
+                  <i className="fas fa-check"></i>
+                </span>
+                {skill}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </Card>
     </div>
   );
 };
-
-ProfileAbout.propTypes = {};
 
 export default ProfileAbout;

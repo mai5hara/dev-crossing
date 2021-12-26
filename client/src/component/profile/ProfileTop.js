@@ -1,5 +1,22 @@
-import React from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {
+  profileTop,
+  profileImg,
+  profileDetail,
+  companyName,
+  locationName,
+  profileTopLeft,
+  profileTopRight,
+  icon,
+  editIcon,
+  editLink,
+  iconsWrap,
+} from './ProfileTop.style';
 
 const ProfileTop = ({
   profile: {
@@ -8,8 +25,9 @@ const ProfileTop = ({
     location,
     website,
     social,
-    user: { name, avatar },
+    user: { name, avatar, _id },
   },
+  auth,
 }) => {
   const urlToRender = (link) => {
     if (!link.match(/^[a-zA-Z]+:\/\//)) {
@@ -19,68 +37,89 @@ const ProfileTop = ({
   };
 
   return (
-    <div className="profile-top bg-primary p-2">
-      <img className="round-img my-1" src={avatar} alt="" />
-      <h1 className="large">{name}</h1>
-      <p className="lead">
-        {status} {company && <span>at {company}</span>}
-      </p>
-      <p>{location && <span>{location}</span>}</p>
-      <div className="icons my-1">
-        {website && (
-          <a
-            href={urlToRender(website)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fas fa-globe fa-2x"></i>
-          </a>
-        )}
-        {social && social.twitter && (
-          <a
-            href={urlToRender(social.twitter)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-twitter fa-2x"></i>
-          </a>
-        )}
-        {social && social.facebook && (
-          <a
-            href={urlToRender(social.facebook)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-facebook fa-2x"></i>
-          </a>
-        )}
-        {social && social.linkedin && (
-          <a
-            href={urlToRender(social.linkedin)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-linkedin fa-2x"></i>
-          </a>
-        )}
-        {social && social.youtube && (
-          <a
-            href={urlToRender(social.youtube)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-youtube fa-2x"></i>
-          </a>
-        )}
-        {social && social.instagram && (
-          <a
-            href={urlToRender(social.instagram)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-instagram fa-2x"></i>
-          </a>
-        )}
+    <div css={profileTop}>
+      <div css={profileTopLeft}>
+        <div css={profileImg}>
+          <img src={avatar} alt="" />
+        </div>
+        <div css={profileDetail}>
+          <h1>{name}</h1>
+          <p css={companyName}>
+            {status} at{company && <span> {company}</span>}
+          </p>
+          <p css={locationName}>
+            <i class="fas fa-map-marker-alt"></i>
+            {location && <span>{location}</span>}
+          </p>
+        </div>
+      </div>
+      <div css={profileTopRight}>
+        {auth.isAuthenticated &&
+          auth.loading === false &&
+          auth.user._id === _id && (
+            <Link to="/edit-profile" css={editLink}>
+              <Button type="primary" shape="round">
+                <i class="fas fa-edit"></i>
+                <span css={editIcon}>Edit Profile</span>
+              </Button>
+            </Link>
+          )}
+        <div css={iconsWrap}>
+          {website && (
+            <a
+              href={urlToRender(website)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i css={icon} className="fas fa-globe"></i>
+            </a>
+          )}
+          {social && social.twitter && (
+            <a
+              href={urlToRender(social.twitter)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i css={icon} className="fab fa-twitter"></i>
+            </a>
+          )}
+          {social && social.facebook && (
+            <a
+              href={urlToRender(social.facebook)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i css={icon} className="fab fa-facebook"></i>
+            </a>
+          )}
+          {social && social.linkedin && (
+            <a
+              href={urlToRender(social.linkedin)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i css={icon} className="fab fa-linkedin"></i>
+            </a>
+          )}
+          {social && social.youtube && (
+            <a
+              href={urlToRender(social.youtube)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i css={icon} className="fab fa-youtube"></i>
+            </a>
+          )}
+          {social && social.instagram && (
+            <a
+              href={urlToRender(social.instagram)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i css={icon} className="fab fa-instagram"></i>
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -88,6 +127,7 @@ const ProfileTop = ({
 
 ProfileTop.propTypes = {
   profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 export default ProfileTop;

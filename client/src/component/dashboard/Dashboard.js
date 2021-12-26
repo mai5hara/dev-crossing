@@ -1,6 +1,7 @@
-/** @jsxImportSource @emotion/react */
-import tw, { css, theme } from 'twin.macro';
-import React, { Fragment, useEffect } from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -23,14 +24,13 @@ const Dashboard = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <Fragment>
-      <input css={[tw`hover:border-black`]} />
+    <>
       <h1 className="large text-primary">Dashboard</h1>
       <p className="load">
         <i className="fas fa-user"> Welcome {user && user.name}</i>
       </p>
       {profile !== null ? (
-        <Fragment>
+        <>
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
@@ -40,16 +40,16 @@ const Dashboard = ({
               <i className="fas fa-user-minus"> Delete My Account</i>
             </button>
           </div>
-        </Fragment>
+        </>
       ) : (
-        <Fragment>
+        <>
           <p>You have not yet setup a profile, please add some info</p>
           <Link to="/create-profile" className="btn btn-primary my-1">
             Create Profile
           </Link>
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 

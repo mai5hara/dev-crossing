@@ -1,10 +1,16 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Card, Col } from 'antd';
+import { Card, Col, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { profile, profileImg, profileImgWrap } from './ProfileItem.style';
+import {
+  profileImg,
+  profileImgWrap,
+  skillsWrap,
+  companyName,
+  locationName,
+} from './ProfileItem.style';
 
 const ProfileItem = ({
   profile: {
@@ -16,24 +22,32 @@ const ProfileItem = ({
   },
 }) => {
   return (
-    <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }} css={profile}>
+    <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
       <Link to={`/profile/${_id}`}>
         <Card hoverable>
           <div css={profileImgWrap}>
-            <img css={profileImg} src={avatar} alt="" className="round-img" />
+            <img css={profileImg} src={avatar} alt="" />
           </div>
           <div>
             <h2>{name}</h2>
-            <p>
+            <p css={companyName}>
               {status} {company && <span> at {company}</span>}
             </p>
-            <p className="my-1">{location && <span>{location}</span>}</p>
+            <p css={locationName}>
+              <span>
+                <i class="fas fa-map-marker-alt"></i>
+              </span>
+              {location && <span>{location}</span>}
+            </p>
           </div>
-          <ul>
+          <ul css={skillsWrap}>
             {skills.slice(0, 4).map((skill, index) => (
-              <li key={index} className="text-primary">
-                <i className="fas fa-check"></i> {skill}
-              </li>
+              <Button key={index} shape="round">
+                <span>
+                  <i className="fas fa-check"></i>
+                </span>
+                {skill}
+              </Button>
             ))}
           </ul>
         </Card>
