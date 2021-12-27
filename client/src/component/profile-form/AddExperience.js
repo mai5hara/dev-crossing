@@ -1,120 +1,177 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import React, { Fragment, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { Button } from 'antd';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { addExperience } from '../../actions/profile';
+import {
+  editProfile,
+  inputItem,
+  labelWrap,
+  inputArea,
+  inputLabel,
+  inputStyle,
+  textareaStyle,
+  errorMessage,
+  required,
+  title,
+  btnLink,
+  inputStyleDate,
+  checkboxWrap,
+  checkboxArea,
+} from './profile-form.style';
+import { btnWrap, btnStyle } from '../ui/Button.style';
 
 const AddExperience = ({ addExperience, history }) => {
-  const [formData, setFormData] = useState({
-    company: '',
-    title: '',
-    location: '',
-    from: '',
-    to: '',
-    current: false,
-    description: '',
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required('Type your Job Title'),
+    company: Yup.string().required('Type your own company or one you work'),
+    location: Yup.string().required('Type city or state'),
+    from: Yup.string().required('Type from date'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
-  const { company, title, location, from, to, current, description } = formData;
-
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    addExperience(formData, history);
+  const onSubmit = (data) => {
+    addExperience(data, history);
   };
 
   return (
-    <Fragment>
-      <h1 className="large text-primary">Add An Experience</h1>
-      <p className="lead">
-        <i className="fas fa-code-branch"></i> Add any developer/programming
-        positions that you have had in the past
-      </p>
-      <small>* = required field</small>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Job Title"
-            name="title"
-            value={title}
-            onChange={(e) => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Company"
-            name="company"
-            value={company}
-            onChange={(e) => onChange(e)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Location"
-            name="location"
-            value={location}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <h4>From Date</h4>
-          <input
-            type="date"
-            name="from"
-            value={from}
-            onChange={(e) => onChange(e)}
-          />
-        </div>
-        <div className="form-group">
-          <p>
+    <div css={editProfile}>
+      <h1 css={title}>Add An Experience</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div css={inputItem}>
+          <div css={labelWrap}>
+            <label css={inputLabel}>Job Title</label>
+            <div css={required}>Required</div>
+          </div>
+          <div css={inputArea}>
             <input
-              type="checkbox"
-              name="current"
-              checked={current}
-              value={current}
-              onChange={(e) => {
-                setFormData({ ...formData, current: !current });
-                toggleDisabled(!toDateDisabled);
-              }}
-            />{' '}
-            Current Job
-          </p>
+              css={inputStyle}
+              type="text"
+              id="title"
+              {...register('title')}
+            />
+            {errors['title'] && (
+              <p css={errorMessage}>{errors['title']?.message}</p>
+            )}
+          </div>
         </div>
-        <div className="form-group">
-          <h4>To Date</h4>
-          <input
-            type="date"
-            name="to"
-            value={to}
-            onChange={(e) => onChange(e)}
-            disabled={toDateDisabled ? 'disabled' : ''}
-          />
+        <div css={inputItem}>
+          <div css={labelWrap}>
+            <label css={inputLabel}>Company</label>
+            <div css={required}>Required</div>
+          </div>
+          <div css={inputArea}>
+            <input
+              css={inputStyle}
+              type="text"
+              id="company"
+              {...register('company')}
+            />
+            {errors['company'] && (
+              <p css={errorMessage}>{errors['company']?.message}</p>
+            )}
+          </div>
         </div>
-        <div className="form-group">
-          <textarea
-            name="description"
-            cols="30"
-            rows="5"
-            placeholder="Job Description"
-            value={description}
-            onChange={(e) => onChange(e)}
-          ></textarea>
+        <div css={inputItem}>
+          <div css={labelWrap}>
+            <label css={inputLabel}>Location</label>
+            <div css={required}>Required</div>
+          </div>
+          <div css={inputArea}>
+            <input
+              css={inputStyle}
+              type="text"
+              id="location"
+              {...register('location')}
+            />
+            {errors['location'] && (
+              <p css={errorMessage}>{errors['location']?.message}</p>
+            )}
+          </div>
         </div>
-        <input type="submit" className="btn btn-primary my-1" />
-        <a className="btn btn-light my-1" href="dashboard.html">
-          Go Back
-        </a>
+        <div css={inputItem}>
+          <div css={labelWrap}>
+            <label css={inputLabel}>From Date</label>
+            <div css={required}>Required</div>
+          </div>
+          <div css={inputArea}>
+            <div css={checkboxArea}>
+              <input
+                css={inputStyleDate}
+                type="date"
+                id="from"
+                {...register('from')}
+              />
+              <div css={checkboxWrap}>
+                <input
+                  type="checkbox"
+                  id="current"
+                  {...register('current')}
+                  onChange={(e) => {
+                    toggleDisabled(!toDateDisabled);
+                  }}
+                />{' '}
+                <span>Current Job</span>
+              </div>
+            </div>
+            {errors['from'] && (
+              <p css={errorMessage}>{errors['from']?.message}</p>
+            )}
+          </div>
+        </div>
+
+        <div css={inputItem}>
+          <div css={labelWrap}>
+            <label css={inputLabel}>To Date</label>
+          </div>
+          <div css={inputArea}>
+            <input
+              type="date"
+              css={inputStyleDate}
+              id="to"
+              {...register('to')}
+              disabled={toDateDisabled ? 'disabled' : ''}
+            />
+          </div>
+        </div>
+        <div css={inputItem}>
+          <div css={labelWrap}>
+            <label css={inputLabel}>Job Description</label>
+          </div>
+          <div css={inputArea}>
+            <textarea
+              css={textareaStyle}
+              id="description"
+              {...register('description')}
+            ></textarea>
+          </div>
+        </div>
+        <div css={btnWrap}>
+          <Button css={btnStyle('primary')} htmlType="submit">
+            Submit
+          </Button>
+          <Link css={btnLink} to="/dashboard">
+            <Button css={btnStyle('secondary')}>Go Back</Button>
+          </Link>
+        </div>
       </form>
-    </Fragment>
+    </div>
   );
 };
 

@@ -12,12 +12,13 @@ import Profiles from '../profiles/Profiles';
 import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import Post from '../post/Post';
+import Messages from '../messages/Messages';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from './PrivateRoute';
 
 const Routes = () => {
   return (
-    <section className="container">
+    <section>
       <Alert />
       <Switch>
         <Route exact path="/register" component={Register} />
@@ -31,10 +32,11 @@ const Routes = () => {
         <PrivateRoute exact path="/add-education" component={AddEducation} />
         <PrivateRoute exact path="/posts" component={Posts} />
         <PrivateRoute exact path="/posts/:id" component={Post} />
+        <PrivateRoute exact path="/messages" component={Messages} />
         <Route component={NotFound} />
       </Switch>
     </section>
-  )
-}
+  );
+};
 
 export default Routes;
