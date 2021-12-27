@@ -24,6 +24,7 @@ import {
   required,
   title,
   inputLabelSns,
+  btnLink,
 } from './profile-form.style';
 import { btnWrap, btnStyle } from '../ui/Button.style';
 
@@ -49,7 +50,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
   return (
     <div css={editProfile}>
-      <h1 css={title}>Edit Your Profile</h1>
+      <h1 css={title}>Create Your Profile</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div css={inputItem}>
           <div css={labelWrap}>
@@ -89,7 +90,9 @@ const CreateProfile = ({ createProfile, history }) => {
           </div>
         </div>
         <div css={inputItem}>
-          <label css={inputLabel}>Website</label>
+          <div css={labelWrap}>
+            <label css={inputLabel}>Website</label>
+          </div>
           <div css={inputArea}>
             <input
               css={inputStyle}
@@ -262,8 +265,8 @@ const CreateProfile = ({ createProfile, history }) => {
           <Button css={btnStyle('primary')} htmlType="submit">
             Submit
           </Button>
-          <Link css={btnStyle('secondary')} to="/dashboard">
-            <Button>Go Back</Button>
+          <Link to="/dashboard" css={btnLink}>
+            <Button css={btnStyle('secondary')}>Go Back</Button>
           </Link>
         </div>
       </form>

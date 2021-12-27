@@ -54,7 +54,22 @@ img {
   width: 100%;
 }
 
-/* ＝＝＝＝＝＝＝＝＝＝＝＝ */
+/* =========== dashboard tab =========== */
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--secondary-color);
+}
+
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list {
+  width: 100%;
+}
+
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  width: 33.33%;
+  justify-content: center;
+}
+
+/* ==================================== */
 
 /* 
 .container {

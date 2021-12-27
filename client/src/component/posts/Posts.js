@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Button, Tabs } from 'antd';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,7 +10,13 @@ import PostItem from './PostItem';
 import PostModal from './PostAddModal';
 import { getPosts } from '../../actions/post';
 import { PlusOutlined } from '@ant-design/icons';
-import { addButton, postWrap, tabWrap, postsWrap } from './posts.style';
+import {
+  addButton,
+  postWrap,
+  tabWrap,
+  postsWrap,
+  message,
+} from './posts.style';
 
 const categoryList = ['all posts', 'front-end', 'back-end', 'design', 'other'];
 
@@ -61,7 +67,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
   ) : (
     <div css={postsWrap}>
       <h1 className="large text-primary">Posts</h1>
-      <p className="lead">
+      <p css={message}>
         <i className="fas fa-user"></i> Welcome to the community
       </p>
       <Button

@@ -2,21 +2,26 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Tabs, Button } from 'antd';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import DashboardActions from './DashboardActions';
 import Experience from './Experience';
 import Education from './Education';
+import DashboardProfile from './DashboardProfile';
 import { deleteAccount, getCurrentProfile } from '../../actions/profile';
+import { dashboard, userName, message } from './dashboard.style';
+import { btnStyle } from '../ui/Button.style';
 
 const Dashboard = ({
   getCurrentProfile,
-  auth: { user },
+  auth,
   profile: { profile, loading },
-  deleteAccount,
 }) => {
+  const { TabPane } = Tabs;
+  const history = useHistory();
+
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
@@ -24,32 +29,42 @@ const Dashboard = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <>
-      <h1 className="large text-primary">Dashboard</h1>
-      <p className="load">
-        <i className="fas fa-user"> Welcome {user && user.name}</i>
+    <div css={dashboard}>
+      <h1>Dashboard</h1>
+      <p css={userName}>
+        <span>
+          <i className="fas fa-user"></i>
+        </span>
+        Welcome {auth.user && auth.user.name}
       </p>
       {profile !== null ? (
         <>
-          <DashboardActions />
-          <Experience experience={profile.experience} />
-          <Education education={profile.education} />
-
-          <div className="my-2">
-            <button className="btn btn-danger" onClick={() => deleteAccount()}>
-              <i className="fas fa-user-minus"> Delete My Account</i>
-            </button>
-          </div>
+          <Tabs defaultActiveKey="1" type="card">
+            <TabPane tab="Profile" key="1">
+              <DashboardProfile profile={profile} auth={auth} />
+            </TabPane>
+            <TabPane tab="Experience" key="2">
+              <Experience experience={profile.experience} />
+            </TabPane>
+            <TabPane tab="Education" key="3">
+              <Education education={profile.education} />
+            </TabPane>
+          </Tabs>
         </>
       ) : (
         <>
-          <p>You have not yet setup a profile, please add some info</p>
-          <Link to="/create-profile" className="btn btn-primary my-1">
+          <p css={message}>
+            You have not yet setup a profile, please add some info
+          </p>
+          <Button
+            css={btnStyle('primary')}
+            onClick={() => history.push('/create-profile')}
+          >
             Create Profile
-          </Link>
+          </Button>
         </>
       )}
-    </>
+    </div>
   );
 };
 

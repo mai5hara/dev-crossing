@@ -1,7 +1,11 @@
 import { css } from '@emotion/react';
 
+export const dashboardItem = css({
+  marginBottom: '50px',
+});
+
 export const profileContainer = css({
-  marginTop: '58px',
+  marginTop: '56px',
   paddingBottom: '50px',
 });
 
@@ -22,16 +26,17 @@ export const profileDetailContainer = css({
   },
 });
 
-export const profileAbout = css({
-  maxWidth: '1100px',
-  margin: '0 auto',
-  '@media(max-width: 1100px)': {
-    margin: '0 30px',
-  },
-  '@media(max-width: 767px)': {
-    margin: '0 15px',
-  },
-});
+export const profileAbout = (page) =>
+  css({
+    maxWidth: '1100px',
+    margin: '0 auto',
+    '@media(max-width: 1100px)': {
+      margin: page === 'dashboard' ? '0' : '0 30px',
+    },
+    '@media(max-width: 767px)': {
+      margin: page === 'dashboard' ? '0' : '0 15px',
+    },
+  });
 
 export const profileExpEdu = css({
   display: 'flex',

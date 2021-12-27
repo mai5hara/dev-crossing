@@ -21,7 +21,7 @@ export const skillsWrap = css({
     marginBottom: '15px',
   },
   '& button': {
-    marginRight: '15px',
+    margin: '0 15px 7px 0',
     '& span': {
       marginRight: '8px',
     },

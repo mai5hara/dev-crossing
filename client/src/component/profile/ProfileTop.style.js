@@ -1,12 +1,14 @@
 import { css } from '@emotion/react';
 
-export const profileTop = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  '@media(max-width: 767px)': {
-    flexDirection: 'column',
-  },
-});
+export const profileTop = (dashboard) =>
+  css({
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: dashboard && '0 24px',
+    '@media(max-width: 767px)': {
+      flexDirection: 'column',
+    },
+  });
 
 export const editIcon = css({
   marginLeft: '7px',
@@ -93,5 +95,5 @@ export const profileTopRight = css({
 });
 
 export const icon = css({
-  fontSize: '1.2rem',
+  fontSize: '1.6rem',
 });

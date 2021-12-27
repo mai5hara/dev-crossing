@@ -28,7 +28,7 @@ export const profileName = css({
   marginLeft: '0.8rem',
   lineHeight: 1,
   '& h4': {
-    fontSize: '1rem',
+    fontSize: '1.4rem',
     fontWeight: 'bold',
     marginBottom: '6px',
     transition: '0.3s',
@@ -38,7 +38,7 @@ export const profileName = css({
     },
   },
   '& p': {
-    fontSize: '0.8rem',
+    fontSize: '1.2rem',
   },
 });
 

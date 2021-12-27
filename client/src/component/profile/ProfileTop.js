@@ -28,6 +28,7 @@ const ProfileTop = ({
     user: { name, avatar, _id },
   },
   auth,
+  dashboard,
 }) => {
   const urlToRender = (link) => {
     if (!link.match(/^[a-zA-Z]+:\/\//)) {
@@ -37,7 +38,7 @@ const ProfileTop = ({
   };
 
   return (
-    <div css={profileTop}>
+    <div css={profileTop(dashboard)}>
       <div css={profileTopLeft}>
         <div css={profileImg}>
           <img src={avatar} alt="" />
@@ -56,7 +57,8 @@ const ProfileTop = ({
       <div css={profileTopRight}>
         {auth.isAuthenticated &&
           auth.loading === false &&
-          auth.user._id === _id && (
+          auth.user._id === _id &&
+          !dashboard && (
             <Link to="/edit-profile" css={editLink}>
               <Button type="primary" shape="round">
                 <i class="fas fa-edit"></i>
