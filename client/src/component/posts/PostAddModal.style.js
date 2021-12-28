@@ -13,3 +13,7 @@ export const btnSubmit = css({
 export const categoryText = css({
   margin: '15px 0 5px 0',
 });
+
+export const buttonWrap = css({
+  marginTop: '20px',
+});

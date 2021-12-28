@@ -73,7 +73,6 @@ export const btn = css({
   display: 'inline-block',
   color: '#333',
   lineHeight: 1,
-  fontSize: '1rem',
   border: 'none',
   cursor: 'pointer',
   transition: 'all 0.3s',

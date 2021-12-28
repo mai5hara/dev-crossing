@@ -10,13 +10,8 @@ import PostItem from './PostItem';
 import PostModal from './PostAddModal';
 import { getPosts } from '../../actions/post';
 import { PlusOutlined } from '@ant-design/icons';
-import {
-  addButton,
-  postWrap,
-  tabWrap,
-  postsWrap,
-  message,
-} from './posts.style';
+import { postWrap, tabWrap, postsWrap, message } from './posts.style';
+import { btnStyle } from '../ui/Button.style';
 
 const categoryList = ['all posts', 'front-end', 'back-end', 'design', 'other'];
 
@@ -71,12 +66,12 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         <i className="fas fa-user"></i> Welcome to the community
       </p>
       <Button
-        css={addButton}
+        css={btnStyle('primary')}
         shape="round"
         icon={<PlusOutlined />}
         onClick={showModal}
       >
-        Add Comment
+        Add Post
       </Button>
       <PostModal
         isModalVisible={isModalVisible}

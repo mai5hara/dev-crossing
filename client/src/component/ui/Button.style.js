@@ -39,9 +39,9 @@ export const btnStyle = (color) =>
           : '#909090',
       borderColor:
         color === 'primary'
-          ? '#ffffff'
-          : color === 'secondary'
           ? 'var(--secondary-color)'
+          : color === 'secondary'
+          ? '#ffffff'
           : '#909090',
       color:
         color === 'primary'
@@ -54,9 +54,9 @@ export const btnStyle = (color) =>
     '&: focus': {
       background:
         color === 'primary'
-          ? '#ffffff'
-          : color === 'secondary'
           ? 'var(--secondary-color)'
+          : color === 'secondary'
+          ? '#ffffff'
           : '#909090',
       borderColor:
         color === 'primary'
@@ -74,4 +74,28 @@ export const btnStyle = (color) =>
     '@media(max-width: 767px)': {
       width: '100%',
     },
+    '& span': {
+      marginLeft: '8px',
+    },
   });
+
+export const btn = css({
+  display: 'inline-block',
+  color: '#333',
+  lineHeight: 1,
+  border: 'none',
+  cursor: 'pointer',
+  transition: 'all 0.3s',
+  outline: 'none',
+  background: 'none',
+  '& span': {
+    marginLeft: '8px',
+  },
+});
+
+export const btnDelete = css({
+  color: 'var(--danger-color)',
+  '&: hover': {
+    opacity: '0.5',
+  },
+});

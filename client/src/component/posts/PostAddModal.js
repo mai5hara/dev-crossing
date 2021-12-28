@@ -1,12 +1,21 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { useState } from 'react';
+import React from 'react';
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
-import { Modal, Button, Input, Select } from 'antd';
+import { Modal, Button } from 'antd';
 import { connect } from 'react-redux';
 import { addPost } from '../../actions/post';
-import { btnSubmit, categoryText } from './PostAddModal.style';
+import { categoryText, buttonWrap } from './PostAddModal.style';
+import { btnStyle } from '../ui/Button.style';
+import {
+  textareaStyle,
+  errorMessage,
+  selectBox,
+} from '../profile-form/profile-form.style';
 
 const PostModal = ({
   isModalVisible,
@@ -15,12 +24,22 @@ const PostModal = ({
   addPost,
   setIsModalVisible,
 }) => {
-  const [text, setText] = useState('');
-  const [category, setCategory] = useState('');
-  const { TextArea } = Input;
-  const { Option } = Select;
+  const validationSchema = Yup.object().shape({
+    text: Yup.string().required('Type somethig'),
+  });
 
-  console.log(text, category);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = (data) => {
+    addPost(data);
+    setIsModalVisible(false);
+  };
 
   return (
     <Modal
@@ -31,35 +50,28 @@ const PostModal = ({
       footer={null}
     >
       <div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            addPost({ text, category });
-            setText('');
-            setCategory('');
-            setIsModalVisible(false);
-          }}
-        >
-          <TextArea
-            rows={5}
-            value={text}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <textarea
             placeholder="Create a post"
-            onChange={(e) => setText(e.target.value)}
-            required
+            css={textareaStyle}
+            id="text"
+            {...register('text')}
           />
+          {errors['text'] && (
+            <p css={errorMessage}>{errors['text']?.message}</p>
+          )}
           <p css={categoryText}>Category</p>
-          <Select
-            defaultValue=""
-            style={{ width: 200 }}
-            onChange={(e) => setCategory(e)}
-          >
-            <Option value="">Select category</Option>
-            <Option value="front-end">Front-end</Option>
-            <Option value="back-end">Back-end</Option>
-            <Option value="design">Design</Option>
-            <Option value="other">Other</Option>
-          </Select>
-          <input type="submit" css={btnSubmit} value="Submit" />
+          <select id="category" css={selectBox} {...register('category')}>
+            <option value="front-end">Front-end</option>
+            <option value="back-end">Back-end</option>
+            <option value="design">Design</option>
+            <option value="other">Other</option>
+          </select>
+          <div css={buttonWrap}>
+            <Button htmlType="submit" css={btnStyle('primary')}>
+              Submit
+            </Button>
+          </div>
         </form>
       </div>
     </Modal>

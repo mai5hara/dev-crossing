@@ -9,6 +9,13 @@ export const dashboard = css({
   '@media(max-width: 767px)': {
     margin: '100px 15px 50px 15px',
   },
+  '.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list': {
+    width: '100%',
+  },
+  '.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab': {
+    width: '33.33%',
+    justifyContent: 'center',
+  },
 });
 
 export const titleWrap = css({
@@ -28,6 +35,9 @@ export const titleWrap = css({
 
 export const userName = css({
   margin: '20px 0 30px 0',
+  '& span': {
+    marginRight: '5px',
+  },
 });
 
 export const profileWrap = css({
