@@ -23,11 +23,11 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
     <>
       <div css={postWrap}>
         <Link to="/posts" css={btnWrap}>
-          <i class="fas fa-arrow-left"></i>
+          <i className="fas fa-arrow-left"></i>
           <span>Back to Posts</span>
         </Link>
         <PostItem post={post} showActions={false} />
-        <div css={commentWrap}>
+        <div css={post.comments.length === 0 ? '' : commentWrap}>
           {post.comments.map((comment) => (
             <CommentItem
               key={comment._id}

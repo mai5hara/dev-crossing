@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+// ===== Post =====
 export const postWrap = css({
   maxWidth: '800px',
   margin: '100px auto 0 auto',

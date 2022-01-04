@@ -1,12 +1,22 @@
-import React, { Fragment } from 'react';
-import Walk from './Walk.gif';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { css } from '@emotion/react';
 
-export default () => (
-  <Fragment>
-    <img
-      src={Walk}
-      style={{width: '100px', margin: 'auto', display: 'block'}}
-      alt='Loading...'
-    />
-  </Fragment>
-)
+const spinWrap = css({
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+const Spinner = () => {
+  const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
+
+  return (
+    <div css={spinWrap}>
+      <Spin indicator={antIcon} />
+    </div>
+  );
+};
+export default Spinner;
