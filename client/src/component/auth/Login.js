@@ -1,69 +1,94 @@
-import React , { Fragment, useState } from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import React from 'react';
+import { Button } from 'antd';
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import { authWrap, inputWrap, description, btnWrap } from './auth.style';
+import { btnStyle } from '../ui/Button.style';
+import { errorMessage, inputStyle } from '../profile-form/profile-form.style';
 
-const Login = ({ login , isAuthenticated }) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+const Login = ({ login, isAuthenticated }) => {
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required('Email is required'),
+    password: Yup.string().min(6).required('Password is required'),
   });
 
-  const { email, password } = formData;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value});
-
-  const onSubmit = async e => {
-    e.preventDefault();
-    login(email, password);
-  }
+  const onSubmit = (data) => {
+    login(data.email, data.password);
+  };
 
   // Redirect if logged in
-  if(isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+  if (isAuthenticated) {
+    return <Redirect to="/mypage" />;
   }
 
   return (
-    <Fragment>
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead"><i className="fas fa-user"></i> Sign Into Your Account</p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input 
-            type="email" 
-            placeholder="Email Address" 
-            name="email"
-            value={email}
-            onChange={ e => onChange(e)}
+    <div css={authWrap}>
+      <h1>Sign In</h1>
+      <p css={description}>
+        <i className="fas fa-user"></i> Sign Into Your Account
+      </p>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div css={inputWrap}>
+          <label>Email</label>
+          <input
+            type="email"
+            id="email"
+            {...register('email')}
+            css={inputStyle}
           />
+          {errors['email'] && (
+            <p css={errorMessage}>{errors['email']?.message}</p>
+          )}
         </div>
-        <div className="form-group">
+        <div css={inputWrap}>
+          <label>Password</label>
           <input
             type="password"
-            placeholder="Password"
-            name="password"
             minLength="6"
-            value={password}
-            onChange={ e => onChange(e)}
+            id="password"
+            {...register('password')}
+            css={inputStyle}
           />
+          {errors['password'] && (
+            <p css={errorMessage}>{errors['password']?.message}</p>
+          )}
         </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
+        <div css={btnWrap}>
+          <Button htmlType="submit" css={btnStyle('primary')}>
+            Login
+          </Button>
+        </div>
       </form>
-      <p className="my-1">
+      <p>
         Don't have an account? <Link to="/register">Sign Up</Link>
       </p>
-    </Fragment>
-  )
-}
+    </div>
+  );
+};
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
-}
+  isAuthenticated: PropTypes.bool,
+};
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(Login);
