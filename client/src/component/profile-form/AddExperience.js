@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button } from 'antd';
 import PropTypes from 'prop-types';
@@ -166,7 +166,7 @@ const AddExperience = ({ addExperience, history }) => {
           <Button css={btnStyle('primary')} htmlType="submit">
             Submit
           </Button>
-          <Link css={btnLink} to="/dashboard">
+          <Link css={btnLink} to="/mypage">
             <Button css={btnStyle('secondary')}>Go Back</Button>
           </Link>
         </div>

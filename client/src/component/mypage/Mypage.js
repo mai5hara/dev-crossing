@@ -9,16 +9,12 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import Experience from './Experience';
 import Education from './Education';
-import DashboardProfile from './DashboardProfile';
+import MypageProfile from './MypageProfile';
 import { deleteAccount, getCurrentProfile } from '../../actions/profile';
-import { dashboard, userName, message } from './dashboard.style';
+import { mypage, userName, message } from './Mypage.style';
 import { btnStyle } from '../ui/Button.style';
 
-const Dashboard = ({
-  getCurrentProfile,
-  auth,
-  profile: { profile, loading },
-}) => {
+const Mypage = ({ getCurrentProfile, auth, profile: { profile, loading } }) => {
   const { TabPane } = Tabs;
   const history = useHistory();
 
@@ -29,8 +25,8 @@ const Dashboard = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <div css={dashboard}>
-      <h1>Dashboard</h1>
+    <div css={mypage}>
+      <h1>Mypage</h1>
       <p css={userName}>
         <span>
           <i className="fas fa-user"></i>
@@ -41,7 +37,7 @@ const Dashboard = ({
         <>
           <Tabs defaultActiveKey="1" type="card">
             <TabPane tab="Profile" key="1">
-              <DashboardProfile profile={profile} auth={auth} />
+              <MypageProfile profile={profile} auth={auth} />
             </TabPane>
             <TabPane tab="Experience" key="2">
               <Experience experience={profile.experience} />
@@ -68,7 +64,7 @@ const Dashboard = ({
   );
 };
 
-Dashboard.propTypes = {
+Mypage.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
@@ -81,5 +77,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  Dashboard
+  Mypage
 );

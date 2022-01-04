@@ -44,21 +44,21 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
                   <ul>
                     <li>
                       <span css={githubIcon}>
-                        <i class="far fa-star"></i>
+                        <i className="far fa-star"></i>
                       </span>
                       <span css={githubRepoCount}>{repo.stargazers_count}</span>
                       Stars
                     </li>
                     <li>
                       <span css={githubIcon}>
-                        <i class="far fa-eye"></i>
+                        <i className="far fa-eye"></i>
                       </span>
                       <span css={githubRepoCount}>{repo.watchers_count}</span>
                       Watchers
                     </li>
                     <li>
                       <span css={githubIcon}>
-                        <i class="fas fa-code-branch"></i>
+                        <i className="fas fa-code-branch"></i>
                       </span>
                       <span css={githubRepoCount}>{repo.forks_count}</span>Forks
                     </li>

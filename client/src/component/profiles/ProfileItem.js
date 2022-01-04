@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Card, Col, Button } from 'antd';
+import { Card, Col, Button, Badge } from 'antd';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -10,6 +10,7 @@ import {
   skillsWrap,
   companyName,
   locationName,
+  badge,
 } from './ProfileItem.style';
 
 const ProfileItem = ({
@@ -35,19 +36,17 @@ const ProfileItem = ({
             </p>
             <p css={locationName}>
               <span>
-                <i class="fas fa-map-marker-alt"></i>
+                <i className="fas fa-map-marker-alt"></i>
               </span>
               {location && <span>{location}</span>}
             </p>
           </div>
           <ul css={skillsWrap}>
             {skills.slice(0, 4).map((skill, index) => (
-              <Button key={index} shape="round">
-                <span>
-                  <i className="fas fa-check"></i>
-                </span>
-                {skill}
-              </Button>
+              <div key={index} css={badge}>
+                <i className="fas fa-check"></i>
+                <span>{skill}</span>
+              </div>
             ))}
           </ul>
         </Card>

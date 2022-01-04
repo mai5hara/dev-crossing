@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const dashboardItem = css({
+export const mypageItem = css({
   marginBottom: '50px',
 });
 
@@ -31,10 +31,10 @@ export const profileAbout = (page) =>
     maxWidth: '1100px',
     margin: '0 auto',
     '@media(max-width: 1100px)': {
-      margin: page === 'dashboard' ? '0' : '0 30px',
+      margin: page === 'mypage' ? '0' : '0 30px',
     },
     '@media(max-width: 767px)': {
-      margin: page === 'dashboard' ? '0' : '0 15px',
+      margin: page === 'mypage' ? '0' : '0 15px',
     },
   });
 

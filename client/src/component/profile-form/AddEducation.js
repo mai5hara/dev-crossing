@@ -1,9 +1,9 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
-import { Link, withRouter, Router } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
@@ -165,7 +165,7 @@ const AddEducation = ({ addEducation, history }) => {
           <Button css={btnStyle('primary')} htmlType="submit">
             Submit
           </Button>
-          <Link css={btnLink} to="/dashboard">
+          <Link css={btnLink} to="/mypage">
             <Button css={btnStyle('secondary')}>Go Back</Button>
           </Link>
         </div>

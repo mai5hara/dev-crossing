@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const dashboard = css({
+export const mypage = css({
   maxWidth: '1100px',
   margin: '100px auto 50px auto',
   '@media(max-width: 1100px)': {
@@ -48,7 +48,7 @@ export const message = css({
   marginBottom: '40px',
 });
 
-export const dashboardItem = css({
+export const mypageItem = css({
   marginBottom: '50px',
 });
 

@@ -28,3 +28,15 @@ export const locationName = css({
     marginRight: '6px',
   },
 });
+
+export const badge = css({
+  border: '1px solid var(--border-primary)',
+  borderRadius: '50px',
+  display: 'inline-block',
+  padding: '2px 8px',
+  fontSize: '1.2rem',
+  margin: '0 8px 8px 0',
+  '& span': {
+    marginLeft: '5px',
+  },
+});

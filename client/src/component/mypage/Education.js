@@ -9,7 +9,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteEducation } from '../../actions/profile';
-import { table, titleWrap, dashboardItem } from './dashboard.style';
+import { table, titleWrap, mypageItem } from './Mypage.style';
 import { btnStyle, btn, btnDelete } from '../ui/Button.style';
 
 const Education = ({ education, deleteEducation }) => {
@@ -37,11 +37,10 @@ const Education = ({ education, deleteEducation }) => {
   ));
 
   return (
-    <div css={dashboardItem}>
+    <div css={mypageItem}>
       <div css={titleWrap}>
         <h2>Education Credentials</h2>
         <Button
-          shape="round"
           icon={<PlusOutlined />}
           css={btnStyle('primary')}
           onClick={() => history.push('/add-education')}

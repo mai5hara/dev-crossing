@@ -67,7 +67,6 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       </p>
       <Button
         css={btnStyle('primary')}
-        shape="round"
         icon={<PlusOutlined />}
         onClick={showModal}
       >

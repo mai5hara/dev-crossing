@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { deleteExperience } from '../../actions/profile';
-import { table, titleWrap, dashboardItem } from './dashboard.style';
+import { table, titleWrap, mypageItem } from './Mypage.style';
 import { btnStyle, btn, btnDelete } from '../ui/Button.style';
 
 const Experience = ({ experience, deleteExperience }) => {
@@ -40,11 +40,10 @@ const Experience = ({ experience, deleteExperience }) => {
   ));
 
   return (
-    <div css={dashboardItem}>
+    <div css={mypageItem}>
       <div css={titleWrap}>
         <h2>Experience Credentials</h2>
         <Button
-          shape="round"
           icon={<PlusOutlined />}
           css={btnStyle('primary')}
           onClick={() => history.push('/add-experience')}

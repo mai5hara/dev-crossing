@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 
-export const profileTop = (dashboard) =>
+export const profileTop = (mypage) =>
   css({
     display: 'flex',
     justifyContent: 'space-between',
-    padding: dashboard && '0 24px',
+    padding: mypage && '0 24px',
     '@media(max-width: 767px)': {
       flexDirection: 'column',
     },
@@ -74,6 +74,9 @@ export const iconsWrap = css({
     marginRight: '10px',
     '&:last-of-type': {
       marginRight: 0,
+    },
+    '&:hover': {
+      color: 'var(--secondary-color)',
     },
   },
   '@media(max-width: 767px)': {

@@ -45,7 +45,7 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = (data) => {
     createProfile(data, history, true);
-    history.push('/dashboard');
+    history.push('/mypage');
   };
 
   return (
@@ -265,7 +265,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <Button css={btnStyle('primary')} htmlType="submit">
             Submit
           </Button>
-          <Link to="/dashboard" css={btnLink}>
+          <Link to="/mypage" css={btnLink}>
             <Button css={btnStyle('secondary')}>Go Back</Button>
           </Link>
         </div>

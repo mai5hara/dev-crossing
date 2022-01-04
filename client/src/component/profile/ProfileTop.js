@@ -17,6 +17,7 @@ import {
   editLink,
   iconsWrap,
 } from './ProfileTop.style';
+import { btnStyle } from '../ui/Button.style';
 
 const ProfileTop = ({
   profile: {
@@ -28,7 +29,7 @@ const ProfileTop = ({
     user: { name, avatar, _id },
   },
   auth,
-  dashboard,
+  mypage,
 }) => {
   const urlToRender = (link) => {
     if (!link.match(/^[a-zA-Z]+:\/\//)) {
@@ -38,7 +39,7 @@ const ProfileTop = ({
   };
 
   return (
-    <div css={profileTop(dashboard)}>
+    <div css={profileTop(mypage)}>
       <div css={profileTopLeft}>
         <div css={profileImg}>
           <img src={avatar} alt="" />
@@ -49,7 +50,7 @@ const ProfileTop = ({
             {status} at{company && <span> {company}</span>}
           </p>
           <p css={locationName}>
-            <i class="fas fa-map-marker-alt"></i>
+            <i className="fas fa-map-marker-alt"></i>
             {location && <span>{location}</span>}
           </p>
         </div>
@@ -58,10 +59,10 @@ const ProfileTop = ({
         {auth.isAuthenticated &&
           auth.loading === false &&
           auth.user._id === _id &&
-          !dashboard && (
+          !mypage && (
             <Link to="/edit-profile" css={editLink}>
-              <Button type="primary" shape="round">
-                <i class="fas fa-edit"></i>
+              <Button css={btnStyle('primary')}>
+                <i className="fas fa-edit"></i>
                 <span css={editIcon}>Edit Profile</span>
               </Button>
             </Link>

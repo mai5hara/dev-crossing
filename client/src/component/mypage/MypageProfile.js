@@ -7,28 +7,27 @@ import { useHistory } from 'react-router-dom';
 import ProfileTop from '../profile/ProfileTop';
 import ProfileAbout from '../profile/ProfileAbout';
 import { deleteAccount } from '../../actions/profile';
-import { titleWrap, profileWrap } from './dashboard.style';
+import { titleWrap, profileWrap } from './Mypage.style';
 import {
   profileDetail,
   profileDetailContainer,
   profileAbout,
-  dashboardItem,
+  mypageItem,
 } from '../profile/Profile.style';
 import { btnStyle } from '../ui/Button.style';
 
-const DashboardProfile = ({ profile, auth }) => {
+const MypageProfile = ({ profile, auth }) => {
   const history = useHistory();
 
   return (
-    <div css={dashboardItem}>
+    <div css={mypageItem}>
       <div css={titleWrap}>
         <h2>Profile</h2>
         <Button
           css={btnStyle('primary')}
-          shape="round"
           onClick={() => history.push('edit-profile')}
         >
-          <i class="fas fa-edit"></i>
+          <i className="fas fa-edit"></i>
           <span>Edit Profile</span>
         </Button>
       </div>
@@ -38,7 +37,7 @@ const DashboardProfile = ({ profile, auth }) => {
             <ProfileTop profile={profile} auth={auth} dashboard />
           </div>
         </div>
-        <div css={profileAbout('dashboard')}>
+        <div css={profileAbout('mypage')}>
           <ProfileAbout profile={profile} />
         </div>
       </div>
@@ -49,4 +48,4 @@ const DashboardProfile = ({ profile, auth }) => {
   );
 };
 
-export default DashboardProfile;
+export default MypageProfile;

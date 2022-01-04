@@ -39,9 +39,9 @@ export const btnStyle = (color) =>
           : '#909090',
       borderColor:
         color === 'primary'
-          ? 'var(--secondary-color)'
-          : color === 'secondary'
           ? '#ffffff'
+          : color === 'secondary'
+          ? 'var(--secondary-color)'
           : '#909090',
       color:
         color === 'primary'

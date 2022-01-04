@@ -1,12 +1,13 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Card, Button } from 'antd';
+import { Card } from 'antd';
 import {
   bioWrap,
   skillsWrap,
   profileAboutItem,
   profileAbout,
+  badge,
 } from './ProfileAbout.style';
 
 const ProfileAbout = ({
@@ -31,12 +32,10 @@ const ProfileAbout = ({
           <h2>Skill Set</h2>
           <div>
             {skills.map((skill, index) => (
-              <Button shape="round" key={index}>
-                <span>
-                  <i className="fas fa-check"></i>
-                </span>
-                {skill}
-              </Button>
+              <div css={badge} key={index}>
+                <i className="fas fa-check"></i>
+                <span>{skill}</span>
+              </div>
             ))}
           </div>
         </div>
