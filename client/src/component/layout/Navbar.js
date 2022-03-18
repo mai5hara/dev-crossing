@@ -21,6 +21,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const location = useLocation();
 
   const handleToggle = () => {
+    console.log(isSidebarOpen);
     setIsSidebarOpen(!isSidebarOpen);
   };
 
@@ -64,15 +65,15 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
       <li
         onClick={handleToggle}
-        css={location.pathname === '/register' ? selectedBar : ''}
+        css={location.pathname === '/signup' ? selectedBar : ''}
       >
-        <Link to="/register">Register</Link>
+        <Link to="/signup">Sign Up</Link>
       </li>
       <li
         onClick={handleToggle}
         css={location.pathname === '/login' ? selectedBar : ''}
       >
-        <Link to="/login">Sign In</Link>
+        <Link to="/login">Login</Link>
       </li>
     </ul>
   );
@@ -83,7 +84,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <h1>
           <Link to="/profiles">
             {/* <i className="fas fa-code"></i>  */}
-            DevConnector
+            DevCrossing
           </Link>
         </h1>
         {!loading && <>{isAuthenticated ? authLinks : guestLinks}</>}

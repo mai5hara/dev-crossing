@@ -1,5 +1,5 @@
 import axios from 'axios';
-import profile from '../reducers/profile';
+// import profile from '../reducers/profile';
 import { setAlert } from './alert';
 
 import {

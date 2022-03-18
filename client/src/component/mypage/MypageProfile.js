@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 import ProfileTop from '../profile/ProfileTop';
@@ -34,7 +33,7 @@ const MypageProfile = ({ profile, auth }) => {
       <div css={profileWrap}>
         <div css={profileDetail}>
           <div css={profileDetailContainer}>
-            <ProfileTop profile={profile} auth={auth} dashboard />
+            <ProfileTop profile={profile} auth={auth} mypage />
           </div>
         </div>
         <div css={profileAbout('mypage')}>

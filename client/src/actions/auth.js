@@ -12,6 +12,15 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (401 === error.response.status) {
+  } else {
+      return Promise.reject(error);
+  }
+});
+
 // Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {

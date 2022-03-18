@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';

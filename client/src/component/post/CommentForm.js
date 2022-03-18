@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
 import { Button } from 'antd';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';

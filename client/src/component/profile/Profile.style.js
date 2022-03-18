@@ -5,7 +5,7 @@ export const mypageItem = css({
 });
 
 export const profileContainer = css({
-  marginTop: '56px',
+  marginTop: '65px',
   paddingBottom: '50px',
 });
 

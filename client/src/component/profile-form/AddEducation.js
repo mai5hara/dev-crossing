@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';

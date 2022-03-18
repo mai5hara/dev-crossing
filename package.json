@@ -10,11 +10,13 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
+  "homepage": "https://dev-crossing.vercel.app/",
   "author": "mai",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.4",
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "gravatar": "^1.8.1",

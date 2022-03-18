@@ -1,7 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
@@ -98,12 +97,12 @@ const Register = ({ setAlert, accountRegister, isAuthenticated }) => {
         </div>
         <div css={btnWrap}>
           <Button htmlType="submit" css={btnStyle('primary')}>
-            Register
+            Sign Up
           </Button>
         </div>
       </form>
       <p>
-        Already have an account? <Link to="/login">Sign In</Link>
+        Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>
   );

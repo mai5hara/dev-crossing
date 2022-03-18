@@ -10,7 +10,13 @@ import PostItem from './PostItem';
 import PostModal from './PostAddModal';
 import { getPosts } from '../../actions/post';
 import { PlusOutlined } from '@ant-design/icons';
-import { postWrap, tabWrap, postsWrap, message } from './posts.style';
+import {
+  postWrap,
+  tabWrap,
+  postsWrap,
+  message,
+  noItemMsg,
+} from './posts.style';
 import { btnStyle } from '../ui/Button.style';
 
 const categoryList = ['all posts', 'front-end', 'back-end', 'design', 'other'];
@@ -57,6 +63,8 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     getPosts();
   }, [getPosts]);
 
+  console.log(filterPosts);
+
   return loading ? (
     <Spinner />
   ) : (
@@ -88,9 +96,11 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         </Tabs>
       </div>
       <Row gutter={[16, 16]} css={postWrap}>
-        {filterPosts.map((post) => (
-          <PostItem key={post._id} post={post} />
-        ))}
+        {filterPosts.length === 0 ? (
+          <p css={noItemMsg}>No posts yet</p>
+        ) : (
+          filterPosts.map((post) => <PostItem key={post._id} post={post} />)
+        )}
       </Row>
     </div>
   );

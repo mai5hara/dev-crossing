@@ -41,3 +41,7 @@ export const postWrap = css({
 export const tabWrap = css({
   marginTop: '20px',
 });
+
+export const noItemMsg = css({
+  marginLeft: '8px',
+});
