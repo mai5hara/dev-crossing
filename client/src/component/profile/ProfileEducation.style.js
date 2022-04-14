@@ -14,6 +14,9 @@ export const profileEducation = css({
     },
     '& p': {
       wordBreak: 'break-all',
+      '&:first-of-type': {
+        fontWeight: 600
+      }
     },
   },
 });

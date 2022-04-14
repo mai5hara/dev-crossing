@@ -11,6 +11,7 @@ import {
   companyName,
   locationName,
   badge,
+  cardWrap
 } from './ProfileItem.style';
 
 const ProfileItem = ({
@@ -25,7 +26,7 @@ const ProfileItem = ({
   return (
     <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
       <Link to={`/profile/${_id}`}>
-        <Card hoverable>
+        <Card hoverable css={cardWrap}>
           <div css={profileImgWrap}>
             <img css={profileImg} src={avatar} alt="" />
           </div>

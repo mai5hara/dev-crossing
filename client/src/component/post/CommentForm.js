@@ -23,6 +23,7 @@ const CommentForm = ({ postId, addComment }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
@@ -30,6 +31,7 @@ const CommentForm = ({ postId, addComment }) => {
 
   const onSubmit = (data) => {
     addComment(postId, data);
+    reset();
   };
 
   return (

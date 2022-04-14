@@ -20,19 +20,20 @@ import {
 const ProfileGithub = ({ username, getGithubRepos, repos }) => {
   useEffect(() => {
     getGithubRepos(username);
-  }, [getGithubRepos]);
+  }, [getGithubRepos, username]);
   return (
     <div css={profileGihub}>
       <h2>Github Repos</h2>
       {repos === null ? (
         <Spinner />
       ) : (
-        repos.map((repo) => (
+        repos.map((repo, index) => (
           <a
             css={githubRepoListItem}
             href={repo.html_url}
             target="_blank"
             rel="noopener noreferrer"
+            key={index}
           >
             <Card key={repo._id} hoverable>
               <div css={githubRepoListContent}>

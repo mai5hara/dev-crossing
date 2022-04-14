@@ -12,6 +12,8 @@ import {
   imgWrap,
   textWrap,
   profileWrap,
+  commentTime,
+  commentDelete
 } from './post.style';
 import { btn, btnDelete } from '../ui/Button.style';
 
@@ -32,7 +34,7 @@ const CommentItem = ({
             <Link to={`/profile/${user}`}>
               <h4>{name}</h4>
             </Link>
-            <p>
+            <p css={commentTime}>
               <Moment fromNow>{date}</Moment>
             </p>
           </div>
@@ -41,7 +43,7 @@ const CommentItem = ({
           <button
             onClick={(e) => deleteComment(postId, _id)}
             type="button"
-            css={[btn, btnDelete]}
+            css={[btn, btnDelete, commentDelete]}
           >
             <i className="fas fa-trash"></i>
             <span>Delete</span>

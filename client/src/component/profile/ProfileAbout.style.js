@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 
 export const bioWrap = css({
   '& h2': {
+    fontWeight: 600,
     fontSize: '1.7rem',
     marginBottom: '15px',
   },
@@ -17,6 +18,7 @@ export const profileAboutItem = css({
 
 export const skillsWrap = css({
   '& h2': {
+    fontWeight: 600,
     fontSize: '1.7rem',
     marginBottom: '15px',
   },
@@ -29,12 +31,13 @@ export const skillsWrap = css({
 });
 
 export const badge = css({
-  border: '1px solid var(--border-primary)',
+  border: '1px solid var(--secondary-color)',
   borderRadius: '50px',
   display: 'inline-block',
   padding: '2px 8px',
   fontSize: '1.2rem',
   margin: '0 8px 8px 0',
+  color: 'var(--secondary-color)',
   '& span': {
     marginLeft: '5px',
   },

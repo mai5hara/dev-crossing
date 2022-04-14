@@ -4,7 +4,6 @@ import { jsx } from '@emotion/react';
 // import React from 'react';
 import { Button } from 'antd';
 import * as Yup from 'yup';
-import { alert } from '../layout/Alert';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Redirect } from 'react-router-dom';
@@ -14,10 +13,9 @@ import { login } from '../../actions/auth';
 import { authWrap, inputWrap, description, btnWrap } from './auth.style';
 import { btnStyle } from '../ui/Button.style';
 import { errorMessage, inputStyle } from '../profile-form/profile-form.style';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = ({ login, isAuthenticated, alerts }) => {
+const Login = ({ login, isAuthenticated }) => {
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     password: Yup.string().min(6).required('Password is required'),
@@ -40,24 +38,8 @@ const Login = ({ login, isAuthenticated, alerts }) => {
     return <Redirect to="/mypage" />;
   }
 
-  const notify = (msg) =>
-    toast.error(msg, {
-      theme: 'colored',
-      position: 'top-center',
-    });
-
-  const alert = (alerts) => {
-    console.log(alerts);
-    if (alerts !== null && alerts.length > 0) {
-      alerts.map((alert) => {
-        return notify(alert.msg, alert.id);
-      });
-    }
-  };
-
   return (
     <div css={authWrap}>
-      <ToastContainer limit={1} />
       <h1>Login</h1>
       <p css={description}>
         <i className="fas fa-user"></i> Login with Your Account
@@ -92,14 +74,13 @@ const Login = ({ login, isAuthenticated, alerts }) => {
           <Button
             htmlType="submit"
             css={btnStyle('primary')}
-            onClick={alert(alerts)}
           >
             Login
           </Button>
         </div>
       </form>
       <p>
-        Don't have an account? <Link to="/register">Sign Up</Link>
+        Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
     </div>
   );
@@ -108,12 +89,10 @@ const Login = ({ login, isAuthenticated, alerts }) => {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  alerts: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  alerts: state.alert,
 });
 
 export default connect(mapStateToProps, { login })(Login);

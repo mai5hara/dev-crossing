@@ -1,5 +1,9 @@
 import { css } from '@emotion/react';
 
+export const cardWrap = css({
+  minHeight: '100%'
+})
+
 export const profileImg = css({
   width: '50%',
   borderRadius: '50%',
@@ -30,12 +34,13 @@ export const locationName = css({
 });
 
 export const badge = css({
-  border: '1px solid var(--border-primary)',
+  border: '1px solid var(--secondary-color)',
   borderRadius: '50px',
   display: 'inline-block',
   padding: '2px 8px',
   fontSize: '1.2rem',
   margin: '0 8px 8px 0',
+  color: 'var(--secondary-color)',
   '& span': {
     marginLeft: '5px',
   },

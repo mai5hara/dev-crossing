@@ -7,13 +7,15 @@ export const title = css({
 
 export const editProfile = css({
   maxWidth: '800px',
-  margin: '90px auto 0 auto',
-  paddingBottom: '50px',
+  padding: '13rem 50px',
+  margin: '0 auto',
+  minHeight: '100vh',
+  boxSizing: 'border-box',
   '@media(max-width: 800px)': {
-    margin: '0 30px',
+    padding: '13rem 30px',
   },
   '@media(max-width: 767px)': {
-    margin: '0 15px',
+    padding: '13rem 15px',
   },
 });
 
@@ -125,6 +127,7 @@ export const required = css({
   padding: '2px 7px',
   height: '2rem',
   marginLeft: '10px',
+  fontSize: '1.2rem'
 });
 
 export const btnLink = css({

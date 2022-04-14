@@ -22,7 +22,7 @@ const ProfileAbout = ({
       {bio && (
         <Card>
           <div css={bioWrap}>
-            <h2>{name.trim().split(' ')[0]}'s Bio</h2>
+            <h2>{name?.trim().split(' ')[0]}'s Bio</h2>
             <p>{bio}</p>
           </div>
         </Card>
@@ -31,7 +31,7 @@ const ProfileAbout = ({
         <div css={skillsWrap}>
           <h2>Skill Set</h2>
           <div>
-            {skills.map((skill, index) => (
+            {skills?.map((skill, index) => (
               <div css={badge} key={index}>
                 <i className="fas fa-check"></i>
                 <span>{skill}</span>

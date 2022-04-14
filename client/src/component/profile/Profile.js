@@ -19,6 +19,7 @@ import {
   profileContainer,
   profileExpEdu,
   profileExpEduItem,
+  noProfile
 } from './Profile.style';
 
 const Profile = ({
@@ -33,8 +34,12 @@ const Profile = ({
 
   return (
     <div css={profileContainer}>
-      {profile === null || loading ? (
+      {loading ? (
         <Spinner />
+      ) : !profile ? (
+        <div css={profileAbout}>
+          <p css={noProfile}>No Profile yet</p>
+        </div>
       ) : (
         <>
           <div css={profileDetail}>

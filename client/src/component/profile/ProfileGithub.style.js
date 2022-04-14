@@ -24,8 +24,10 @@ export const githubRepoCount = css({
 
 export const githubIcon = css({
   width: '18px',
-  display: 'block',
+  display: 'flex',
   marginRight: '5px',
+  justifyContent: 'center',
+  color: 'var(--secondary-color)'
 });
 
 export const githubRepoListContent = css({
@@ -54,7 +56,7 @@ export const githubIconWrap = css({
 
 export const githubRepoDetails = css({
   '& h4': {
-    fontSize: '1.2rem',
+    fontSize: '1.6rem',
     fontWeight: 'bold',
   },
 });

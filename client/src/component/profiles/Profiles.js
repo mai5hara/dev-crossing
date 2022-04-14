@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
@@ -14,9 +15,10 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
+
   return (
     <div css={profilesContent}>
-      {loading ? (
+      {loading || profiles.length === 0 && !loading? (
         <Spinner />
       ) : (
         <>

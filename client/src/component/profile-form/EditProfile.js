@@ -29,7 +29,7 @@ import {
 import { btnWrap, btnStyle } from '../ui/Button.style';
 
 const EditProfile = ({
-  profile: { profile, loading },
+  profile: { profile },
   createProfile,
   getCurrentProfile,
   history,
@@ -38,7 +38,7 @@ const EditProfile = ({
 
   useEffect(() => {
     getCurrentProfile();
-  }, [loading, getCurrentProfile]);
+  }, [getCurrentProfile]);
 
   const validationSchema = Yup.object().shape({
     skills: Yup.string().required('Type your skills'),
@@ -50,25 +50,10 @@ const EditProfile = ({
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
-    defaultValues: {
-      company: loading || !profile.company ? '' : profile.company,
-      website: loading || !profile.website ? '' : profile.website,
-      location: loading || !profile.location ? '' : profile.location,
-      status: loading || !profile.status ? '' : profile.status,
-      skills: loading || !profile.skills ? '' : profile.skills.join(','),
-      githubusername:
-        loading || !profile.githubusername ? '' : profile.githubusername,
-      bio: loading || !profile.bio ? '' : profile.bio,
-      twitter: loading || !profile.social ? '' : profile.social.twitter,
-      facebook: loading || !profile.social ? '' : profile.social.facebook,
-      linkedin: loading || !profile.social ? '' : profile.social.linkedin,
-      youtube: loading || !profile.social ? '' : profile.social.youtube,
-      instagram: loading || !profile.social ? '' : profile.social.instagram,
-    },
   });
 
-  const onSubmit = (data) => {
-    createProfile(data, history, true);
+  const onSubmit = async (data) => {
+    await createProfile(data, history, true);
     history.push('/mypage');
   };
 
@@ -82,7 +67,7 @@ const EditProfile = ({
             <div css={required}>Required</div>
           </div>
           <div css={inputArea}>
-            <select id="status" {...register('status')} css={selectBox}>
+            <select defaultValue={profile?.status} id="status" {...register('status')} css={selectBox}>
               <option value="Developer">Developer</option>
               <option value="Junior Developer">Junior Developer</option>
               <option value="Senior Developer">Senior Developer</option>
@@ -106,6 +91,7 @@ const EditProfile = ({
               css={inputStyle}
               type="text"
               id="company"
+              defaultValue={profile?.company}
               {...register('company')}
             />
             <p css={inputDescription}>
@@ -122,6 +108,7 @@ const EditProfile = ({
               css={inputStyle}
               type="text"
               id="Website"
+              defaultValue={profile?.website}
               {...register('Website')}
             />
             <p css={inputDescription}>Could be your own or a company website</p>
@@ -136,6 +123,7 @@ const EditProfile = ({
               css={inputStyle}
               type="text"
               id="location"
+              defaultValue={profile?.location}
               {...register('location')}
             />
             <p css={inputDescription}>
@@ -153,6 +141,7 @@ const EditProfile = ({
               css={inputStyle}
               type="text"
               id="skills"
+              defaultValue={profile?.skills}
               {...register('skills')}
             />
             <p css={inputDescription}>
@@ -172,6 +161,7 @@ const EditProfile = ({
               css={inputStyle}
               type="text"
               id="githubusername"
+              defaultValue={profile?.githubusername}
               {...register('githubusername')}
             />
             <p css={inputDescription}>
@@ -188,6 +178,7 @@ const EditProfile = ({
             <textarea
               css={textareaStyle}
               id="bio"
+              defaultValue={profile?.bio}
               {...register('bio')}
             ></textarea>
             <p css={inputDescription}>Tell us a little about yourself</p>
@@ -215,6 +206,7 @@ const EditProfile = ({
                   css={inputStyle}
                   type="text"
                   id="twitter"
+                  defaultValue={profile?.social.twitter}
                   {...register('twitter')}
                 />
               </div>
@@ -231,6 +223,7 @@ const EditProfile = ({
                   css={inputStyle}
                   type="text"
                   id="facebook"
+                  defaultValue={profile?.social.facebook}
                   {...register('facebook')}
                 />
               </div>
@@ -247,6 +240,7 @@ const EditProfile = ({
                   css={inputStyle}
                   type="text"
                   id="youtube"
+                  defaultValue={profile?.social.youtube}
                   {...register('youtube')}
                 />
               </div>
@@ -263,6 +257,7 @@ const EditProfile = ({
                   css={inputStyle}
                   type="text"
                   id="linkedin"
+                  defaultValue={profile?.social.linkedin}
                   {...register('linkedin')}
                 />
               </div>
@@ -279,6 +274,7 @@ const EditProfile = ({
                   css={inputStyle}
                   type="text"
                   id="instagram"
+                  defaultValue={profile?.social.instagram}
                   {...register('instagram')}
                 />
               </div>

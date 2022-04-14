@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
@@ -14,14 +14,15 @@ import {
   menuLineOpen,
   navbarOpen,
   selectedBar,
+  logoImg
 } from './Navbar.style';
+import Logo from '../../assets/logo.svg';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
 
   const handleToggle = () => {
-    console.log(isSidebarOpen);
     setIsSidebarOpen(!isSidebarOpen);
   };
 
@@ -29,23 +30,27 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <ul>
       <li
         onClick={handleToggle}
-        css={location.pathname === '/profiles' ? selectedBar : ''}
+        css={location.pathname === '/' ? selectedBar : ''}
       >
-        <Link to="/profiles">Developers</Link>
+        <NavLink to="/">
+        <i class="fas fa-code"></i> <span>Developers</span>
+        </NavLink>
       </li>
       <li
         onClick={handleToggle}
         css={location.pathname === '/posts' ? selectedBar : ''}
       >
-        <Link to="/posts">Posts</Link>
+        <NavLink to="/posts">
+          <i className="fas fa-comment-dots"></i> <span>Posts</span>
+        </NavLink>
       </li>
       <li
         onClick={handleToggle}
         css={location.pathname === '/mypage' ? selectedBar : ''}
       >
-        <Link to="/mypage">
+        <NavLink to="/mypage">
           <i className="fas fa-user"></i> <span>Mypage</span>
-        </Link>
+        </NavLink>
       </li>
       <li onClick={handleToggle}>
         <a onClick={logout} href="#!">
@@ -59,21 +64,21 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <ul>
       <li
         onClick={handleToggle}
-        css={location.pathname === '/profiles' ? selectedBar : ''}
+        css={location.pathname === '/' ? selectedBar : ''}
       >
-        <Link to="/profiles">Developers</Link>
+        <NavLink to="/">Developers</NavLink>
       </li>
       <li
         onClick={handleToggle}
         css={location.pathname === '/signup' ? selectedBar : ''}
       >
-        <Link to="/signup">Sign Up</Link>
+        <NavLink to="/signup">Sign Up</NavLink>
       </li>
       <li
         onClick={handleToggle}
         css={location.pathname === '/login' ? selectedBar : ''}
       >
-        <Link to="/login">Login</Link>
+        <NavLink to="/login">Login</NavLink>
       </li>
     </ul>
   );
@@ -82,10 +87,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <nav css={navbarWrap}>
       <div css={isSidebarOpen ? navbarOpen : navbar}>
         <h1>
-          <Link to="/profiles">
-            {/* <i className="fas fa-code"></i>  */}
-            DevCrossing
-          </Link>
+          <NavLink to="/">
+            <img src={Logo} alt="Logo" css={logoImg} />
+          </NavLink>
         </h1>
         {!loading && <>{isAuthenticated ? authLinks : guestLinks}</>}
         <button onClick={handleToggle} css={hamburgerMenu}>

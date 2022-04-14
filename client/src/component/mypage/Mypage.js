@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
@@ -22,7 +23,7 @@ const Mypage = ({ getCurrentProfile, auth, profile: { profile, loading } }) => {
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  return loading && profile === null ? (
+  return loading ? (
     <Spinner />
   ) : (
     <div css={mypage}>

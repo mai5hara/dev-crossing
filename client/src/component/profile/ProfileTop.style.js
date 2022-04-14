@@ -49,13 +49,14 @@ export const profileImg = css({
 export const profileDetail = css({
   marginTop: '1.5rem',
   '& h1': {
-    fontSize: '1.8rem',
-    marginBottom: '10px',
+    fontSize: '2.2rem',
+    marginBottom: '1rem',
     lineHeight: 1,
   },
 });
 
 export const companyName = css({
+  marginBottom: '0.8rem',
   '& span': {
     fontWeight: 'bold',
   },

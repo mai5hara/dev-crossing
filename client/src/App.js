@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './component/layout/Navbar';
-import Landing from './component/layout/Landing';
+import Profiles from './component/profiles/Profiles';
 import Routes from './component/routing/Routes';
 import 'antd/dist/antd.css';
+import { ToastContainer } from 'react-toastify';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -28,8 +29,9 @@ const App = () => {
         <>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Landing} />
+            <Route exact path="/" component={Profiles} />
             <Route component={Routes} />
+            <ToastContainer limit={1}/>
           </Switch>
         </>
       </Router>

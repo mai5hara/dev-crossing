@@ -22,8 +22,7 @@ export const btnWrap = css({
     marginLeft: '10px',
   },
   '&:hover': {
-    opacity: 0.7,
-    color: 'var(--primary-color)',
+    color: 'var(--secondary-color)',
   },
 });
 
@@ -35,6 +34,7 @@ export const commentWrap = css({
   border: '1px solid var(--border-primary)',
   padding: '20px',
   marginTop: '20px',
+  backgroundColor: '#fff'
 });
 
 // ===== CommentItem =====
@@ -50,11 +50,21 @@ export const commentItem = css({
   },
 });
 
+export const commentDelete = css({
+  fontSize: '1.4rem'
+})
+
+export const commentTime = css({
+  fontSize: '1.2rem'
+})
+
 export const profileLink = css({
   display: 'flex',
   alignItems: 'center',
   '& h4': {
+    fontWeight: 600,
     marginBottom: '2px',
+    fontSize: '1.4rem'
   },
 });
 
@@ -94,6 +104,7 @@ export const commentFormWrap = css({
   },
   '& h3': {
     marginBottom: '15px',
+    fontSize: '1.6rem'
   },
   '& form': {
     '& button': {

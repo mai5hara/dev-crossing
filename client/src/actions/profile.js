@@ -10,10 +10,12 @@ import {
   ACCOUNT_DELETED,
   CLEAR_PROFILE,
   GET_REPOS,
+  START_FETCH,
 } from './types';
 
 // Get current users profiles
 export const getCurrentProfile = () => async (dispatch) => {
+  dispatch({ type: START_FETCH })
   try {
     const res = await axios.get('/api/profile/me');
 
@@ -50,6 +52,7 @@ export const getProfiles = () => async (dispatch) => {
 
 // Get profile by ID
 export const getProfileById = (userId) => async (dispatch) => {
+  dispatch({ type: START_FETCH })
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
@@ -57,6 +60,7 @@ export const getProfileById = (userId) => async (dispatch) => {
       type: GET_PROFILE,
       payload: res.data,
     });
+
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -67,6 +71,8 @@ export const getProfileById = (userId) => async (dispatch) => {
 
 // Get github repos
 export const getGithubRepos = (username) => async (dispatch) => {
+  dispatch({ type: START_FETCH })
+
   try {
     const res = await axios.get(`/api/profile/github/${username}`);
 
@@ -86,6 +92,8 @@ export const getGithubRepos = (username) => async (dispatch) => {
 export const createProfile =
   (formData, history, edit = false) =>
   async (dispatch) => {
+    dispatch({ type: START_FETCH })
+
     try {
       const config = {
         headers: {

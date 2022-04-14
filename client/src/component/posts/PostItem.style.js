@@ -34,7 +34,6 @@ export const profileName = css({
     transition: '0.3s',
     '&:hover': {
       color: 'var(--secondary-color)',
-      opacity: '0.6',
     },
   },
   '& p': {

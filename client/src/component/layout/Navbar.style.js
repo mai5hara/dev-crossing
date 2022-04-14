@@ -23,7 +23,7 @@ export const navbar = css({
     padding: '1.5rem 0',
   },
   '& li': {
-    padding: '1rem',
+    padding: '1rem 1.5rem',
     position: 'relative',
     '& a': {
       '&:hover': {
@@ -157,3 +157,10 @@ export const menuLine = css(menuLineOpen, {
     },
   },
 });
+
+export const logoImg = css({
+  width: '220px',
+  '@media(max-width: 767px)': {
+    width: '190px',
+  }
+})

@@ -2,34 +2,36 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// const Alert = ( alerts ) => {
-const notify = (msg) =>
-  toast.error(msg, {
-    theme: 'colored',
-    position: 'top-center',
-  });
 
-export const alert = (alerts) => {
-  console.log(alerts);
-  if (alerts !== null && alerts.length > 0) {
-    alerts.map((alert) => {
-      return notify(alert.msg);
-    });
-  }
+const Alert = ({ alerts }) =>  {
+  const notify = (alert) =>
+    toast.error(alert.msg, {
+      theme: 'colored',
+      position: 'top-center',
+    })
+    toast.clearWaitingQueue({ containerId: alert.id });
+
+  // eslint-disable-next-line react/style-prop-object
+  return (
+    <>
+      {
+        alerts !== null && alerts.length > 0 && alerts.map(alert => {
+          notify(alert)
+          return (
+            <div key={alert.id} style={{display:"none"}}></div>
+          )
+        })
+      }
+    </>
+  )
+}
+
+Alert.propTypes = {
+  alerts: PropTypes.array.isRequired,
 };
-// };
-// alerts !== null && alerts.length > 0 && alerts.map(alert => (
-//   <div key={alert.id} className={`alert alert-${alert.alertType}`}>
-//     { alert.msg }
-//   </div>
-// ));
 
-// Alert.propTypes = {
-//   alerts: PropTypes.array.isRequired,
-// };
+const mapStateToProps = (state) => ({
+  alerts: state.alert,
+});
 
-// const mapStateToProps = (state) => ({
-//   alerts: state.alert,
-// });
-
-// export default Alert;
+export default connect(mapStateToProps)(Alert);

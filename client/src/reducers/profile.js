@@ -6,6 +6,7 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_REPOS,
+  START_FETCH
 } from '../actions/types';
 
 const initialState = {
@@ -53,6 +54,11 @@ export default function (state = initialState, action) {
         repos: payload,
         loading: false,
       };
+    case START_FETCH:
+      return {
+        ...state,
+        loading: true
+      }
     default:
       return state;
   }

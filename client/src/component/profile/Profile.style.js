@@ -5,9 +5,19 @@ export const mypageItem = css({
 });
 
 export const profileContainer = css({
-  marginTop: '65px',
-  paddingBottom: '50px',
+  padding: '67px 0 50px 0',
+  minHeight: '100vh',
+  '@media(max-width: 767px)': {
+    padding: '52px 0 50px 0',
+  }
 });
+
+export const noProfile = css({
+  marginTop: '50px',
+  '@media(max-width: 767px)': {
+    marginTop: '30px',
+  }
+})
 
 export const profileDetail = css({
   backgroundColor: '#eeeeee',
@@ -50,6 +60,7 @@ export const profileExpEdu = css({
 export const profileExpEduItem = css({
   width: '49%',
   '& h2': {
+    fontWeight: 600,
     fontSize: '1.7rem',
     marginBottom: '15px',
   },

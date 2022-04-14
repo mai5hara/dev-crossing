@@ -2,7 +2,9 @@ import { css } from '@emotion/react';
 
 export const authWrap = css({
   maxWidth: '400px',
-  margin: '100px auto 50px auto',
+  margin: '0 auto',
+  minHeight: '100vh',
+  paddingTop: '13rem',
   '@media(max-width: 767px)': {
     padding: '0 15px',
   },

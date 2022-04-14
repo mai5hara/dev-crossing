@@ -9,10 +9,13 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  START_FETCH
 } from './types';
 
 // Get posts
 export const getPosts = () => async (dispatch) => {
+  dispatch({ type: START_FETCH })
+
   try {
     const res = await axios.get('/api/posts');
 
@@ -109,6 +112,8 @@ export const addPost = (formData) => async (dispatch) => {
 
 // Get post
 export const getPost = (id) => async (dispatch) => {
+  dispatch({ type: START_FETCH })
+  
   try {
     const res = await axios.get(`/api/posts/${id}`);
 

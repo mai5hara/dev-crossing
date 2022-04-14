@@ -2,14 +2,14 @@ import { css } from '@emotion/react';
 
 export const postsWrap = css({
   maxWidth: '1100px',
-  margin: '100px auto 50px auto',
-  paddingBottom: '50px',
+  margin: '0 auto',
+  boxSizing: 'border-box',
+  minHeight: '100vh',
+  padding: '13rem 50px',
   '@media(max-width: 1100px)': {
-    margin: '100px 30px 50px 30px',
-  },
+    padding: '13rem 30px',  },
   '@media(max-width: 767px)': {
-    margin: '100px 15px 50px 15px',
-  },
+    padding: '13rem 15px',  },
 });
 
 export const message = css({
@@ -45,3 +45,7 @@ export const tabWrap = css({
 export const noItemMsg = css({
   marginLeft: '8px',
 });
+
+export const tabPane = css({
+  fontSize: '1.6rem'
+})

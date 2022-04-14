@@ -16,6 +16,7 @@ import {
   postsWrap,
   message,
   noItemMsg,
+  tabPane
 } from './posts.style';
 import { btnStyle } from '../ui/Button.style';
 
@@ -63,8 +64,6 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     getPosts();
   }, [getPosts]);
 
-  console.log(filterPosts);
-
   return loading ? (
     <Spinner />
   ) : (
@@ -89,7 +88,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       <div css={tabWrap}>
         <Tabs defaultActiveKey="1" centered onChange={handleChange}>
           {categoryList.map((f) => (
-            <TabPane tab={f} key={f}>
+            <TabPane css={tabPane} tab={f} key={f}>
               {f}
             </TabPane>
           ))}
