@@ -3,13 +3,14 @@
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
 import { Button } from 'antd';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addEducation } from '../../actions/profile';
+import { profileSelector } from '../../store/features/profileSlice'
+import { addEducation } from '../../store/apiCalls/profile';
 import {
   editProfile,
   inputItem,
@@ -28,13 +29,16 @@ import {
 } from './profile-form.style';
 import { btnWrap, btnStyle } from '../ui/Button.style';
 
-const AddEducation = ({ addEducation, history }) => {
+const AddEducation = ({ history }) => {
   const validationSchema = Yup.object().shape({
     school: Yup.string().required('Type school'),
     degree: Yup.string().required('Type your degree'),
     fieldofstudy: Yup.string().required('Type your field of study'),
     from: Yup.string().required('Type from date'),
   });
+  const dispatch = useDispatch();
+  const [toDateDisabled, toggleDisabled] = useState(false);
+  const { error } = useSelector(profileSelector);
 
   const {
     register,
@@ -44,10 +48,17 @@ const AddEducation = ({ addEducation, history }) => {
     resolver: yupResolver(validationSchema),
   });
 
-  const [toDateDisabled, toggleDisabled] = useState(false);
+  const notify = (message) =>
+  toast.error(message, {
+    theme: 'colored',
+    position: 'top-center',
+  })
 
-  const onSubmit = (data) => {
-    addEducation(data, history);
+  const onSubmit = async (data) => {
+    await dispatch(addEducation(data, history));
+    if(error) {
+      notify(error?.msg);
+    }
   };
 
   return (
@@ -165,7 +176,7 @@ const AddEducation = ({ addEducation, history }) => {
           <Button css={btnStyle('primary')} htmlType="submit">
             Submit
           </Button>
-          <Link css={btnLink} to="/mypage">
+          <Link css={btnLink} to='/mypage'>
             <Button css={btnStyle('secondary')}>Go Back</Button>
           </Link>
         </div>
@@ -174,8 +185,4 @@ const AddEducation = ({ addEducation, history }) => {
   );
 };
 
-AddEducation.propTypes = {
-  addEducation: PropTypes.func.isRequired,
-};
-
-export default connect(null, { addEducation })(withRouter(AddEducation));
+export default AddEducation;

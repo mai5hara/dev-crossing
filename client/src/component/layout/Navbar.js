@@ -3,9 +3,9 @@
 import { jsx } from '@emotion/react';
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelector } from '../../store/features/authSlice';
+import { logout } from '../../store/apiCalls/auth';
 import {
   navbar,
   navbarWrap,
@@ -18,9 +18,11 @@ import {
 } from './Navbar.style';
 import Logo from '../../assets/logo.svg';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, loading } = useSelector(authSelector);
+  const dispatch = useDispatch()
 
   const handleToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -33,7 +35,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         css={location.pathname === '/' ? selectedBar : ''}
       >
         <NavLink to="/">
-        <i class="fas fa-code"></i> <span>Developers</span>
+        <i className="fas fa-code"></i> <span>Developers</span>
         </NavLink>
       </li>
       <li
@@ -53,7 +55,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </NavLink>
       </li>
       <li onClick={handleToggle}>
-        <a onClick={logout} href="#!">
+        <a onClick={() => dispatch(logout())} href="#!">
           <i className="fas fa-sign-out-alt"></i> <span>Logout</span>
         </a>
       </li>
@@ -100,13 +102,4 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
 };
 
-Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logout })(Navbar);
+export default Navbar;

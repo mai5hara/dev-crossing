@@ -1,20 +1,21 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'antd';
-import { setAlert } from '../../actions/alert';
-import { accountRegister } from '../../actions/auth';
-import PropTypes from 'prop-types';
+import { accountRegister } from '../../store/apiCalls/auth';
+import { authSelector } from '../../store/features/authSlice';
 import { authWrap, inputWrap, description, btnWrap } from './auth.style';
 import { btnStyle } from '../ui/Button.style';
 import { errorMessage, inputStyle } from '../profile-form/profile-form.style';
 
-const Register = ({ setAlert, accountRegister, isAuthenticated }) => {
+const Register = () => {
+  const { isAuthenticated } = useSelector(authSelector);
+  const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     email: Yup.string().required('Email is required'),
@@ -34,7 +35,7 @@ const Register = ({ setAlert, accountRegister, isAuthenticated }) => {
   });
 
   const onSubmit = (data) => {
-    accountRegister(data);
+    dispatch(accountRegister(data));
   };
 
   if (isAuthenticated) {
@@ -108,16 +109,4 @@ const Register = ({ setAlert, accountRegister, isAuthenticated }) => {
   );
 };
 
-Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  accountRegister: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { setAlert, accountRegister })(
-  Register
-);
+export default Register;

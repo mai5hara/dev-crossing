@@ -5,7 +5,7 @@ export const postsWrap = css({
   margin: '0 auto',
   boxSizing: 'border-box',
   minHeight: '100vh',
-  padding: '13rem 50px',
+  padding: '13rem 15px',
   '@media(max-width: 1100px)': {
     padding: '13rem 30px',  },
   '@media(max-width: 767px)': {

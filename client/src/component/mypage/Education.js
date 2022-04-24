@@ -1,18 +1,18 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { deleteEducation } from '../../actions/profile';
+import { useDispatch } from 'react-redux';
+import { deleteEducation } from '../../store/apiCalls/profile';
 import { table, titleWrap, mypageItem } from './Mypage.style';
 import { btnStyle, btn, btnDelete } from '../ui/Button.style';
 
-const Education = ({ education, deleteEducation }) => {
+const Education = ({ education }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const educations = education.map((edu) => (
     <tr key={edu._id}>
@@ -27,7 +27,7 @@ const Education = ({ education, deleteEducation }) => {
         )}
       </td>
       <td>
-        <button onClick={() => deleteEducation(edu._id)} css={[btn, btnDelete]}>
+        <button onClick={() => dispatch(deleteEducation(edu._id))} css={[btn, btnDelete]}>
           <i className="fas fa-trash"></i>
           <span>Delete</span>
         </button>
@@ -62,9 +62,4 @@ const Education = ({ education, deleteEducation }) => {
   );
 };
 
-Education.propTypes = {
-  education: PropTypes.array.isRequired,
-  deleteEducation: PropTypes.func.isRequired,
-};
-
-export default connect(null, { deleteEducation })(Education);
+export default Education;

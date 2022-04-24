@@ -3,15 +3,17 @@
 import { jsx } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { Card } from 'antd';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { profileSelector } from '../../store/features/profileSlice';
+import { authSelector } from '../../store/features/authSlice';
 import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
-import { getProfileById } from '../../actions/profile';
+import { getProfileById } from '../../store/apiCalls/profile';
 import {
   profileDetail,
   profileDetailContainer,
@@ -19,24 +21,35 @@ import {
   profileContainer,
   profileExpEdu,
   profileExpEduItem,
-  noProfile
+  noProfile,
+  profileGithub
 } from './Profile.style';
 
-const Profile = ({
-  getProfileById,
-  profile: { profile, loading },
-  auth,
-  match,
-}) => {
+const Profile = ({ match }) => {
+  const { profile, loading, error } = useSelector(profileSelector)
+  const auth = useSelector(authSelector)
+  const dispatch = useDispatch();
+
+  const notify = (message) => {
+    toast.error(message, {
+      theme: 'colored',
+      position: 'top-center',
+    })
+  }
+
+  if(error) {
+    notify(error?.msg);
+  }
+
   useEffect(() => {
-    getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+    dispatch(getProfileById(match.params.id));
+  }, [dispatch, match.params.id]);
 
   return (
     <div css={profileContainer}>
       {loading ? (
         <Spinner />
-      ) : !profile ? (
+      ): !profile ? (
         <div css={profileAbout}>
           <p css={noProfile}>No Profile yet</p>
         </div>
@@ -86,7 +99,12 @@ const Profile = ({
               </div>
             </div>
             {profile.githubusername && (
-              <ProfileGithub username={profile.githubusername} />
+              <div css={profileGithub}>
+                <Card>
+                  <h2>Github Repos</h2>
+                  <ProfileGithub username={profile.githubusername}/>
+                </Card>
+              </div>
             )}
           </div>
         </>
@@ -95,15 +113,4 @@ const Profile = ({
   );
 };
 
-Profile.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default Profile;

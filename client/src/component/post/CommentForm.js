@@ -5,9 +5,9 @@ import { Button } from 'antd';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addComment } from '../../actions/post';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { addComment } from '../../store/apiCalls/post';
 import { btnStyle } from '../ui/Button.style';
 import { commentFormWrap, commentTextArea, commentContent } from './post.style';
 import {
@@ -15,10 +15,22 @@ import {
   errorMessage,
 } from '../profile-form/profile-form.style';
 
-const CommentForm = ({ postId, addComment }) => {
+const CommentForm = ({ postId, error }) => {
   const validationSchema = Yup.object().shape({
     text: Yup.string().required('Type some comments'),
   });
+  const dispatch = useDispatch();
+
+  const notify = (message) => {
+    toast.error(message, {
+      theme: 'colored',
+      position: 'top-center',
+    })
+  }
+
+  if(error) {
+    notify(error?.msg);
+  }
 
   const {
     register,
@@ -30,7 +42,7 @@ const CommentForm = ({ postId, addComment }) => {
   });
 
   const onSubmit = (data) => {
-    addComment(postId, data);
+    dispatch(addComment(postId, data));
     reset();
   };
 
@@ -56,8 +68,4 @@ const CommentForm = ({ postId, addComment }) => {
   );
 };
 
-CommentForm.propTypes = {
-  addComment: PropTypes.func.isRequired,
-};
-
-export default connect(null, { addComment })(CommentForm);
+export default CommentForm;

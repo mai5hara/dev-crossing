@@ -4,15 +4,15 @@ import { jsx } from '@emotion/react';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Moment from 'react-moment';
-import { connect } from 'react-redux';
-import { deleteExperience } from '../../actions/profile';
+import { useDispatch } from 'react-redux';
+import { deleteExperience } from '../../store/apiCalls/profile';
 import { table, titleWrap, mypageItem } from './Mypage.style';
 import { btnStyle, btn, btnDelete } from '../ui/Button.style';
 
-const Experience = ({ experience, deleteExperience }) => {
+const Experience = ({ experience }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const experiences = experience.map((exp) => (
     <tr key={exp._id}>
@@ -28,7 +28,7 @@ const Experience = ({ experience, deleteExperience }) => {
       </td>
       <td>
         <button
-          onClick={() => deleteExperience(exp._id)}
+          onClick={() => dispatch(deleteExperience(exp._id))}
           css={[btn, btnDelete]}
         >
           <i className="fas fa-trash"></i>
@@ -65,9 +65,4 @@ const Experience = ({ experience, deleteExperience }) => {
   );
 };
 
-Experience.propTypes = {
-  experience: PropTypes.array.isRequired,
-  deleteExperience: PropTypes.func.isRequired,
-};
-
-export default connect(null, { deleteExperience })(Experience);
+export default Experience;

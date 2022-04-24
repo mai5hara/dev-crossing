@@ -54,6 +54,12 @@ ul {
 
 img {
   width: 100%;
+} 
+
+.ant-btn[disabled],.ant-btn[disabled]:hover,.ant-btn[disabled]:focus,.ant-btn[disabled]:active {
+  background: var(--secondary-color);
+  opacity: 0.5;
+  color: #fff;
 }
 
 /* =========== Mypage tab =========== */
@@ -61,6 +67,10 @@ img {
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
 .ant-tabs-tab:hover {
   color: var(--secondary-color);
+}
+
+.ant-tabs-nav-operations {
+  display: none !important;
 }
 
 /* =========== Navbar =========== */

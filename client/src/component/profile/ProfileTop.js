@@ -3,7 +3,6 @@
 import { jsx } from '@emotion/react';
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {
   profileTop,
   profileImg,
@@ -126,11 +125,6 @@ const ProfileTop = ({
       </div>
     </div>
   );
-};
-
-ProfileTop.propTypes = {
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
 };
 
 export default ProfileTop;

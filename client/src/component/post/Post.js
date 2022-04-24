@@ -3,20 +3,35 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { postSelector } from '../../store/features/postSlice';
 import Spinner from '../layout/Spinner';
 import PostItem from '../posts/PostItem';
-import { getPost } from '../../actions/post';
+import { getPost } from '../../store/apiCalls/post';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import { postWrap, btnWrap, commentWrap } from './post.style';
 
-const Post = ({ getPost, post: { post, loading }, match }) => {
+const Post = ({ match }) => {
+  const dispatch = useDispatch();
+  const { post, loading, error } = useSelector(postSelector)
+
+  const notify = (message) => {
+    toast.error(message, {
+      theme: 'colored',
+      position: 'top-center',
+    })
+  }
+
+  if(error) {
+    notify(error?.msg);
+  }
+
   useEffect(() => {
-    getPost(match.params.id);
-  }, [getPost, match.params.id]);
+    dispatch(getPost(match.params.id));
+  }, [dispatch, match.params.id]);
 
   return loading || post === null ? (
     <Spinner />
@@ -38,18 +53,9 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
           ))}
         </div>
       </div>
-      <CommentForm postId={post._id} />
+      <CommentForm postId={post._id} error={error}/>
     </>
   );
 };
 
-Post.propTypes = {
-  getPost: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  post: state.post,
-});
-
-export default connect(mapStateToProps, { getPost })(Post);
+export default Post;

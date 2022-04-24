@@ -26,13 +26,13 @@ export const profileDetail = css({
 export const profileDetailContainer = css({
   maxWidth: '1100px',
   margin: '0 auto',
-  padding: '4rem 0',
+  padding: '4rem 15px',
+  boxSizing: 'border-box',
   '@media(max-width: 1100px)': {
-    margin: '0 30px',
+    padding: '4rem 30px',
   },
   '@media(max-width: 767px)': {
-    padding: '2.5rem 0',
-    margin: '0 15px',
+    padding: '2.5rem 15px',
   },
 });
 
@@ -40,11 +40,13 @@ export const profileAbout = (page) =>
   css({
     maxWidth: '1100px',
     margin: '0 auto',
+    padding: page === 'mypage' ? '0' : '0 15px',
+    boxSizing: 'border-box',
     '@media(max-width: 1100px)': {
-      margin: page === 'mypage' ? '0' : '0 30px',
+      padding: page === 'mypage' ? '0' : '0 30px',
     },
     '@media(max-width: 767px)': {
-      margin: page === 'mypage' ? '0' : '0 15px',
+      padding: page === 'mypage' ? '0' : '0 15px',
     },
   });
 
@@ -71,3 +73,7 @@ export const profileExpEduItem = css({
     },
   },
 });
+
+export const profileGithub = css({
+  marginTop: '20px'
+})

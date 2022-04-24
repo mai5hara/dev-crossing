@@ -3,7 +3,6 @@
 import { jsx } from '@emotion/react';
 import { Card, Col } from 'antd';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {
   profileImg,
   profileImgWrap,
@@ -54,10 +53,6 @@ const ProfileItem = ({
       </Link>
     </Col>
   );
-};
-
-ProfileItem.propTypes = {
-  profile: PropTypes.object.isRequired,
 };
 
 export default ProfileItem;

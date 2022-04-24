@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 export const mypage = css({
   maxWidth: '1100px',
   margin: '0 auto',
-  padding: '13rem 50px',
+  padding: '13rem 15px',
   minHeight: '100vh',
   boxSizing: 'border-box',
   '@media(max-width: 1100px)': {

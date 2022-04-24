@@ -3,11 +3,11 @@
 import { jsx } from '@emotion/react';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
-import PropTypes from 'prop-types';
 import { Modal, Button } from 'antd';
-import { connect } from 'react-redux';
-import { addPost } from '../../actions/post';
+import { useDispatch } from 'react-redux';
+import { addPost } from '../../store/apiCalls/post';
 import { categoryText, buttonWrap } from './PostAddModal.style';
 import { btnStyle } from '../ui/Button.style';
 import {
@@ -20,12 +20,13 @@ const PostModal = ({
   isModalVisible,
   handleOk,
   handleCancel,
-  addPost,
   setIsModalVisible,
+  postError
 }) => {
   const validationSchema = Yup.object().shape({
     text: Yup.string().required('Type somethig'),
   });
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -35,10 +36,22 @@ const PostModal = ({
     resolver: yupResolver(validationSchema),
   });
 
+  const notify = (message) => {
+    toast.error(message, {
+      theme: 'colored',
+      position: 'top-center',
+    })
+  }
+
+  if(postError) {
+    notify(postError?.msg);
+  }
+
   const onSubmit = (data) => {
-    addPost(data);
+    dispatch(addPost(data));
     setIsModalVisible(false);
   };
+
 
   return (
     <Modal
@@ -77,8 +90,4 @@ const PostModal = ({
   );
 };
 
-PostModal.propTypes = {
-  addPost: PropTypes.func.isRequired,
-};
-
-export default connect(null, { addPost })(PostModal);
+export default PostModal;

@@ -7,15 +7,18 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../store/apiCalls/auth';
+import { authSelector } from '../../store/features/authSlice';
 import { authWrap, inputWrap, description, btnWrap } from './auth.style';
 import { btnStyle } from '../ui/Button.style';
 import { errorMessage, inputStyle } from '../profile-form/profile-form.style';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector(authSelector);
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     password: Yup.string().min(6).required('Password is required'),
@@ -30,7 +33,7 @@ const Login = ({ login, isAuthenticated }) => {
   });
 
   const onSubmit = (data) => {
-    login(data.email, data.password);
+    dispatch(login(data.email, data.password));
   };
 
   // Redirect if logged in
@@ -86,13 +89,4 @@ const Login = ({ login, isAuthenticated }) => {
   );
 };
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default Login;

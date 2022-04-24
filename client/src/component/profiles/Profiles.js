@@ -4,24 +4,40 @@
 import { jsx } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { Row } from 'antd';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { profileSelector } from '../../store/features/profileSlice'
 import Spinner from '../layout/Spinner';
 import ProfileItem from './ProfileItem';
-import { getProfiles } from '../../actions/profile';
-import { profilesContent, message } from './Profiles.style';
+import { getProfiles } from '../../store/apiCalls/profile';
+import { profilesContentWrap, profilesContent, message } from './Profiles.style';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = () => {
+  const {profiles, loading, error} = useSelector(profileSelector)
+  
+  const dispatch = useDispatch();
+
+  const notify = (message) => {
+    toast.error(message, {
+      theme: 'colored',
+      position: 'top-center',
+    })
+  }
+
+  if(error) {
+    notify(error?.msg);
+  }
+
   useEffect(() => {
-    getProfiles();
-  }, [getProfiles]);
+    dispatch(getProfiles())
+  }, [dispatch]);
 
   return (
-    <div css={profilesContent}>
-      {loading || profiles.length === 0 && !loading? (
+    <div css={profilesContentWrap}>
+      {loading ? (
         <Spinner />
       ) : (
-        <>
+        <div css={profilesContent}>
           <h1>Developers</h1>
           <p css={message}>
             <i className="fab fa-connectdevelop"></i> Browse and connect with
@@ -36,19 +52,10 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               <h4>No profiles found...</h4>
             )}
           </Row>
-        </>
+        </div>
       )}
     </div>
   );
 };
 
-Profiles.propTypes = {
-  getProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-});
-
-export default connect(mapStateToProps, { getProfiles })(Profiles);
+export default Profiles;

@@ -9,7 +9,7 @@ import { ToastContainer } from 'react-toastify';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
-import { loadUser } from './actions/auth';
+import { loadUser } from './store/apiCalls/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
@@ -25,16 +25,16 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Router>
-        <>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Profiles} />
-            <Route component={Routes} />
-            <ToastContainer limit={1}/>
-          </Switch>
-        </>
-      </Router>
+        <Router>
+          <>
+            <ToastContainer limit={1} preventDuplicates={false}/>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Profiles} />
+              <Route component={Routes} />
+            </Switch>
+          </>
+        </Router>
     </Provider>
   );
 };

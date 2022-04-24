@@ -3,12 +3,13 @@
 import { jsx } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
 import { Row, Button, Tabs } from 'antd';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { postSelector } from '../../store/features/postSlice';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostModal from './PostAddModal';
-import { getPosts } from '../../actions/post';
+import { getPosts } from '../../store/apiCalls/post';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   postWrap,
@@ -22,10 +23,12 @@ import { btnStyle } from '../ui/Button.style';
 
 const categoryList = ['all posts', 'front-end', 'back-end', 'design', 'other'];
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = () => {
   const [currentFilter, setCurrentFilter] = useState('all');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { posts, loading, error } = useSelector(postSelector)
   const { TabPane } = Tabs;
+  const dispatch = useDispatch();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -33,7 +36,6 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 
   const handleChange = (newFilter) => {
     setCurrentFilter(newFilter);
-    console.log(newFilter);
   };
 
   const handleOk = () => {
@@ -43,6 +45,16 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  const notify = (message) =>
+  toast.error(message, {
+    theme: 'colored',
+    position: 'top-center',
+  })
+
+  if (error) {
+    notify(error?.msg);
+  }
 
   const filterPosts = posts
     ? posts.filter((post) => {
@@ -61,8 +73,8 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     : null;
 
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return loading ? (
     <Spinner />
@@ -84,6 +96,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         handleOk={handleOk}
         handleCancel={handleCancel}
         setIsModalVisible={setIsModalVisible}
+        postError={error}
       />
       <div css={tabWrap}>
         <Tabs defaultActiveKey="1" centered onChange={handleChange}>
@@ -98,20 +111,11 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
         {filterPosts.length === 0 ? (
           <p css={noItemMsg}>No posts yet</p>
         ) : (
-          filterPosts.map((post) => <PostItem key={post._id} post={post} />)
+          filterPosts.map((post) => <PostItem key={post._id} post={post} postError={error}/>)
         )}
       </Row>
     </div>
   );
 };
 
-Posts.propTypes = {
-  getPosts: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  post: state.post,
-});
-
-export default connect(mapStateToProps, { getPosts })(Posts);
+export default Posts;

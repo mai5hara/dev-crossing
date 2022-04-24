@@ -14,9 +14,9 @@ const ProfileAbout = ({
   profile: {
     bio,
     skills,
+    githubusername,
     user: { name },
-  },
-}) => {
+  }}) => {
   return (
     <div css={profileAbout}>
       {bio && (

@@ -2,14 +2,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import { Switch, Button } from 'antd';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { profileSelector } from '../../store/features/profileSlice'
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createProfile, getCurrentProfile } from '../../actions/profile';
+import { createProfile, getCurrentProfile } from '../../store/apiCalls/profile';
 import {
   editProfile,
   inputItem,
@@ -29,16 +30,15 @@ import {
 import { btnWrap, btnStyle } from '../ui/Button.style';
 
 const EditProfile = ({
-  profile: { profile },
-  createProfile,
-  getCurrentProfile,
   history,
 }) => {
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  const dispatch = useDispatch();
+  const { loading, profile, error } = useSelector(profileSelector);
 
   useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+    dispatch(getCurrentProfile());
+  }, [dispatch]);
 
   const validationSchema = Yup.object().shape({
     skills: Yup.string().required('Type your skills'),
@@ -52,8 +52,17 @@ const EditProfile = ({
     resolver: yupResolver(validationSchema),
   });
 
+  const notify = (message) =>
+  toast.error(message, {
+    theme: 'colored',
+    position: 'top-center',
+  })
+  
   const onSubmit = async (data) => {
-    await createProfile(data, history, true);
+    await dispatch(createProfile(data, history, true));
+    if(error) {
+      notify(error?.msg);
+    }
     history.push('/mypage');
   };
 
@@ -282,7 +291,7 @@ const EditProfile = ({
           </>
         )}
         <div css={btnWrap}>
-          <Button css={btnStyle('primary')} htmlType="submit">
+          <Button css={btnStyle('primary')} htmlType="submit" disabled={loading}> 
             Submit
           </Button>
           <Link to="/mypage" css={btnLink}>
@@ -294,16 +303,4 @@ const EditProfile = ({
   );
 };
 
-EditProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-});
-
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  withRouter(EditProfile)
-);
+export default EditProfile;

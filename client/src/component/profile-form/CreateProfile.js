@@ -3,14 +3,15 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Switch, Button } from 'antd';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createProfile } from '../../actions/profile';
+import { profileSelector } from '../../store/features/profileSlice'
+import { createProfile } from '../../store/apiCalls/profile';
 import {
   editProfile,
   inputItem,
@@ -29,8 +30,10 @@ import {
 } from './profile-form.style';
 import { btnWrap, btnStyle } from '../ui/Button.style';
 
-const CreateProfile = ({ createProfile, history }) => {
+const CreateProfile = ({ history }) => {
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  const dispatch = useDispatch();
+  const { error } = useSelector(profileSelector);
 
   const validationSchema = Yup.object().shape({
     skills: Yup.string().required('Type your skills'),
@@ -44,8 +47,17 @@ const CreateProfile = ({ createProfile, history }) => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data) => {
-    createProfile(data, history, true);
+  const notify = (message) =>
+  toast.error(message, {
+    theme: 'colored',
+    position: 'top-center',
+  })
+
+  const onSubmit = async (data) => {
+    await dispatch(createProfile(data, history, true));
+    if(error) {
+      notify(error?.msg);
+    }
     history.push('/mypage');
   };
 
@@ -275,8 +287,4 @@ const CreateProfile = ({ createProfile, history }) => {
   );
 };
 
-CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired,
-};
-
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+export default CreateProfile;

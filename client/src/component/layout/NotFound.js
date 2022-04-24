@@ -1,13 +1,27 @@
-import React, { Fragment } from 'react'
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import React from 'react'
+import { jsx, css } from '@emotion/react';
+
+const notFound = css({
+  minHeight: '100vh',
+  paddingTop: '13rem',
+  textAlign: 'center'
+})
+
+const notFountTitle = css({
+  textAlign: 'center',
+  paddingBottom: '20px'
+})
 
 const NotFound = () => {
   return (
-    <Fragment>
-      <h1 className="x-large text-primary">
+    <div css={notFound}>
+      <h1 css={notFountTitle}>
         <i className="fas fa-exclamation-triangle"/> Page Not Found
       </h1>
-      <p className="large">Sorry, this page does not exist</p>
-    </Fragment>
+      <p>Sorry, this page does not exist</p>
+    </div>
   )
 }
 

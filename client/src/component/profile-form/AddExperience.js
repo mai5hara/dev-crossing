@@ -2,14 +2,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Button } from 'antd';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addExperience } from '../../actions/profile';
+import { profileSelector } from '../../store/features/profileSlice'
+import { addExperience } from '../../store/apiCalls/profile';
 import {
   editProfile,
   inputItem,
@@ -28,13 +29,16 @@ import {
 } from './profile-form.style';
 import { btnWrap, btnStyle } from '../ui/Button.style';
 
-const AddExperience = ({ addExperience, history }) => {
+const AddExperience = ({ history }) => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required('Type your Job Title'),
     company: Yup.string().required('Type your own company or one you work'),
     location: Yup.string().required('Type city or state'),
     from: Yup.string().required('Type from date'),
   });
+  const dispatch = useDispatch();
+  const [toDateDisabled, toggleDisabled] = useState(false);
+  const { error } = useSelector(profileSelector);
 
   const {
     register,
@@ -44,10 +48,17 @@ const AddExperience = ({ addExperience, history }) => {
     resolver: yupResolver(validationSchema),
   });
 
-  const [toDateDisabled, toggleDisabled] = useState(false);
+  const notify = (message) =>
+  toast.error(message, {
+    theme: 'colored',
+    position: 'top-center',
+  })
 
-  const onSubmit = (data) => {
-    addExperience(data, history);
+  const onSubmit = async (data) => {
+    await dispatch(addExperience(data, history));
+    if(error) {
+      notify(error?.msg);
+    }
   };
 
   return (
@@ -175,8 +186,4 @@ const AddExperience = ({ addExperience, history }) => {
   );
 };
 
-AddExperience.propTypes = {
-  addExperience: PropTypes.func.isRequired,
-};
-
-export default connect(null, { addExperience })(withRouter(AddExperience));
+export default AddExperience;

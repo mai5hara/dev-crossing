@@ -6,6 +6,7 @@ export const navbarWrap = css({
   width: '100%',
   top: 0,
   backgroundColor: '#fff',
+  height: '70px',
   borderBottom: 'solid 1px var(--border-primary)',
   '@media(max-width: 767px)': {
     height: '56px',
@@ -33,6 +34,9 @@ export const navbar = css({
   },
   '& h1': {
     fontSize: '1.5rem',
+    display: 'flex',
+    height: '70px',
+    alignItems: 'center',
     '& a': {
       '&:hover': {
         color: 'var(--secondary-color)',

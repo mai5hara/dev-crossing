@@ -3,11 +3,12 @@
 import { jsx } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { Col, Badge, Card } from 'antd';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Moment from 'react-moment';
-import { connect } from 'react-redux';
-import { addLike, removeLike, deletePost } from '../../actions/post';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelector } from '../../store/features/authSlice';
+import { addLike, removeLike, deletePost } from '../../store/apiCalls/post';
 import {
   postCard,
   profileImg,
@@ -27,27 +28,41 @@ import {
 } from './PostItem.style';
 
 const PostItem = ({
-  addLike,
-  removeLike,
-  deletePost,
-  auth,
   post: { _id, text, name, avatar, user, likes, comments, date, category },
+  postError,
   showActions,
 }) => {
   const [isLiked, setIsLikes] = useState(false);
+  const auth = useSelector(authSelector);
+  const dispatch = useDispatch();
 
   const handleLike = () => {
     const userLiked = likes.filter((like) => {
       return like.user === auth.user._id;
     });
     if (userLiked.length !== 0) {
-      removeLike(_id);
+      dispatch(removeLike(_id));
       setIsLikes(false);
     } else {
       setIsLikes(true);
-      addLike(_id);
+      dispatch(addLike(_id));
     }
   };
+  
+  const notify = (message) => {
+    toast.error(message, {
+      theme: 'colored',
+      position: 'top-center',
+    })
+  }
+
+  if (auth.error) {
+    notify(auth.error?.msg);
+  }
+
+  if(postError) {
+    notify(postError?.msg);
+  }
 
   useEffect(() => {
     if (!auth.loading) {
@@ -58,7 +73,7 @@ const PostItem = ({
         setIsLikes(true);
       }
     }
-  }, [auth.loading, likes]);
+  }, [auth, likes]);
 
   return (
     <Col xs={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
@@ -112,7 +127,7 @@ const PostItem = ({
                   </div>
                   {!auth.loading && user === auth.user._id && (
                     <button
-                      onClick={(e) => deletePost(_id)}
+                      onClick={(e) => dispatch(deletePost(_id))}
                       type="button"
                       css={[btn, btnDelete]}
                     >
@@ -133,18 +148,4 @@ PostItem.defaultProps = {
   showActions: true,
 };
 
-PostItem.propTypes = {
-  post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  addLike: PropTypes.func.isRequired,
-  removeLike: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
-  PostItem
-);
+export default PostItem;

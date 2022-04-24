@@ -1,37 +1,37 @@
-import { toast } from 'react-toastify';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import React from 'react';
+import { jsx, css } from '@emotion/react';
+import { useSelector } from 'react-redux';
+import { alertSelector } from '../../store/features/alertSlice';
 
+const alertStyle = css({
+  fontWeight: 'bold',
+  position: 'fixed',
+  width: '100%',
+  marginTop: '70px',
+  padding: '30px',
+  zIndex: '99',
+})
 
-const Alert = ({ alerts }) =>  {
-  const notify = (alert) =>
-    toast.error(alert.msg, {
-      theme: 'colored',
-      position: 'top-center',
-    })
-    toast.clearWaitingQueue({ containerId: alert.id });
+const alertType = (type) => css({
+  backgroundColor: type === 'success' ? '#BDF3CD' : '#FFB4B4',
+  color: type === 'success' ? '#1AC84E' : '#FF2A2A'
+})
 
-  // eslint-disable-next-line react/style-prop-object
+const Alert = () =>  {
+  const alerts = useSelector(alertSelector);
   return (
     <>
       {
-        alerts !== null && alerts.length > 0 && alerts.map(alert => {
-          notify(alert)
-          return (
-            <div key={alert.id} style={{display:"none"}}></div>
-          )
-        })
+        alerts !== null && alerts.length > 0 && alerts.map(alert => (
+          <div key={alert.id} css={[alertStyle, alertType(alert.alertType)]}>
+            { alert.msg }
+          </div>
+        ))
       }
     </>
   )
 }
 
-Alert.propTypes = {
-  alerts: PropTypes.array.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  alerts: state.alert,
-});
-
-export default connect(mapStateToProps)(Alert);
+export default Alert;
