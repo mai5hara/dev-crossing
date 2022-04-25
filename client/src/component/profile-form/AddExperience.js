@@ -56,6 +56,8 @@ const AddExperience = ({ history }) => {
 
   const onSubmit = async (data) => {
     await dispatch(addExperience(data, history));
+    history.push();
+
     if(error) {
       notify(error?.msg);
     }
@@ -178,7 +180,7 @@ const AddExperience = ({ history }) => {
             Submit
           </Button>
           <Link css={btnLink} to="/mypage">
-            <Button css={btnStyle('secondary')}>Go Back</Button>
+            <Button css={btnStyle('secondary')} onClick={() => history.push()}>Go Back</Button>
           </Link>
         </div>
       </form>

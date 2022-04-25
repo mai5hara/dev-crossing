@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  start_fetch, get_profiles, get_profile, update_profile, get_repos, set_error, clear_profile
+  start_fetch, get_profiles, get_profile, update_profile, get_repos, set_error, clear_profile, set_currentTab
 } from '../features/profileSlice';
 import { auth_remove } from '../features/authSlice';
 import { setAlert } from './alert';
@@ -182,3 +182,8 @@ export const deleteAccount = (id) => async (dispatch) => {
     }
   }
 };
+
+// Current Tab
+export const handleTabs = (currentTabKey) => (dispatch) => {
+  dispatch(set_currentTab(currentTabKey))
+}

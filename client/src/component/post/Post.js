@@ -14,9 +14,11 @@ import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import { postWrap, btnWrap, commentWrap } from './post.style';
 
-const Post = ({ match }) => {
+const Post = ({ match, history }) => {
   const dispatch = useDispatch();
   const { post, loading, error } = useSelector(postSelector)
+
+  console.log('post',history.push)
 
   const notify = (message) => {
     toast.error(message, {
@@ -38,7 +40,7 @@ const Post = ({ match }) => {
   ) : (
     <>
       <div css={postWrap}>
-        <Link to="/posts" css={btnWrap}>
+        <Link to="/posts" css={btnWrap} onClick={() => history.push()}>
           <i className="fas fa-arrow-left"></i>
           <span>Back to Posts</span>
         </Link>

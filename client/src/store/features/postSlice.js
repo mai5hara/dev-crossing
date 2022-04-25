@@ -6,6 +6,7 @@ const initialState = {
   post: null,
   loading: true,
   error: null,
+  tabKey: 'all posts'
 };
 
 export const postSlice = createSlice({
@@ -55,6 +56,9 @@ export const postSlice = createSlice({
     set_error: (state, action) => {
       state.loading = false
       state.error = action.payload
+    },
+    set_currentTab: (state, action) => {
+      state.tabKey = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -63,6 +67,6 @@ export const postSlice = createSlice({
 
 export const postSelector = state => state.post;
 
-export const { get_posts, update_likes, set_error, start_fetch, delete_post, add_post, get_post, add_comment, delete_comment } = postSlice.actions;
+export const { get_posts, update_likes, set_error, start_fetch, delete_post, add_post, get_post, add_comment, delete_comment, set_currentTab } = postSlice.actions;
 
 export default postSlice.reducer;

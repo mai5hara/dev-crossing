@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { get_posts, update_likes, set_error, start_fetch, delete_post, add_post, get_post, add_comment, delete_comment } from '../features/postSlice';
+import { get_posts, update_likes, set_error, start_fetch, delete_post, add_post, get_post, add_comment, delete_comment, set_currentTab } from '../features/postSlice';
 import { setAlert } from './alert';
 
 // Get posts
@@ -106,3 +106,9 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
     dispatch(set_error({ msg: err.response.statusText, status: err.response.status }))
   }
 };
+
+// Current Tab
+export const handleTabs = (currentTabKey) => (dispatch) => {
+  console.log('currentTabKey', currentTabKey)
+  dispatch(set_currentTab(currentTabKey))
+}

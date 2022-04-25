@@ -9,7 +9,7 @@ import { postSelector } from '../../store/features/postSlice';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostModal from './PostAddModal';
-import { getPosts } from '../../store/apiCalls/post';
+import { getPosts, handleTabs } from '../../store/apiCalls/post';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   postWrap,
@@ -24,9 +24,9 @@ import { btnStyle } from '../ui/Button.style';
 const categoryList = ['all posts', 'front-end', 'back-end', 'design', 'other'];
 
 const Posts = () => {
-  const [currentFilter, setCurrentFilter] = useState('all');
+  const [currentFilter, setCurrentFilter] = useState('all posts');
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { posts, loading, error } = useSelector(postSelector)
+  const { posts, loading, error, tabKey } = useSelector(postSelector)
   const { TabPane } = Tabs;
   const dispatch = useDispatch();
 
@@ -36,6 +36,7 @@ const Posts = () => {
 
   const handleChange = (newFilter) => {
     setCurrentFilter(newFilter);
+    dispatch(handleTabs(newFilter))
   };
 
   const handleOk = () => {
@@ -76,6 +77,10 @@ const Posts = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
+  useEffect(() => {
+    setCurrentFilter(tabKey);
+  }, [tabKey]);
+
   return loading ? (
     <Spinner />
   ) : (
@@ -99,7 +104,7 @@ const Posts = () => {
         postError={error}
       />
       <div css={tabWrap}>
-        <Tabs defaultActiveKey="1" centered onChange={handleChange}>
+        <Tabs activeKey={tabKey} centered onChange={handleChange}>
           {categoryList.map((f) => (
             <TabPane css={tabPane} tab={f} key={f}>
               {f}

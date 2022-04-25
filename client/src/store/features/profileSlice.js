@@ -6,6 +6,7 @@ const initialState = {
   profiles: [],
   repos: [],
   loading: true,
+  tabKey: '1',
   error: {},
 };
 
@@ -45,11 +46,14 @@ export const profileSlice = createSlice({
       state.profile = null
       state.repos = []
     },
+    set_currentTab: (state, action) => {
+      state.tabKey = action.payload
+    }
   },
   extraReducers: (builder) => {}
 })
 
-export const { start_fetch, get_profiles, get_profile, update_profile, get_repos, set_error, clear_profile } = profileSlice.actions;
+export const { start_fetch, get_profiles, get_profile, update_profile, get_repos, set_error, clear_profile, set_currentTab } = profileSlice.actions;
 
 export const profileSelector = state => state.profile
 

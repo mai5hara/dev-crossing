@@ -13,7 +13,7 @@ import Spinner from '../layout/Spinner';
 import Experience from './Experience';
 import Education from './Education';
 import MypageProfile from './MypageProfile';
-import { getCurrentProfile } from '../../store/apiCalls/profile';
+import { getCurrentProfile, handleTabs } from '../../store/apiCalls/profile';
 import { mypage, userName, message } from './Mypage.style';
 import { btnStyle } from '../ui/Button.style';
 
@@ -32,6 +32,10 @@ const Mypage = () => {
 
   if(profileData.error) {
     notify(profileData.error?.msg)
+  }
+
+  const activateTab = (tabKey) => {
+    dispatch(handleTabs(tabKey))
   }
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const Mypage = () => {
           </p>
           {profileData.profile !== null ? (
             <>
-              <Tabs size="small" defaultActiveKey="1" type="card">
+              <Tabs size="small" activeKey={profileData.tabKey} onChange={(e) => activateTab(e)} type="card">
                 <TabPane tab="Profile" key="1">
                   <MypageProfile profile={profileData.profile} auth={auth} />
                 </TabPane>
