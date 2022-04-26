@@ -1,46 +1,57 @@
 import axios from 'axios';
 import {
-  start_fetch, get_profiles, get_profile, update_profile, get_repos, set_error, clear_profile, set_currentTab
+  start_fetch,
+  get_profiles,
+  get_profile,
+  update_profile,
+  get_repos,
+  set_error,
+  clear_profile,
+  set_currentTab,
 } from '../features/profileSlice';
 import { auth_remove } from '../features/authSlice';
 import { setAlert } from './alert';
 
 // Get current users profiles
 export const getCurrentProfile = () => async (dispatch) => {
-  dispatch(start_fetch())
-  
+  dispatch(start_fetch());
+
   try {
     const res = await axios.get('/api/profile/me');
     dispatch(get_profile(res.data));
   } catch (err) {
-    dispatch(set_error({ msg: err.response.statusText, status: err.response.status }))
+    dispatch(
+      set_error({ msg: err.response?.data.msg || err.response?.statusText, status: err.response?.status })
+    );
   }
 };
 
 // Get all profiles
 export const getProfiles = () => async (dispatch) => {
   dispatch(clear_profile());
-  dispatch(start_fetch())
+  dispatch(start_fetch());
 
   try {
     const res = await axios.get('/api/profile');
     dispatch(get_profiles(res.data));
   } catch (err) {
-    dispatch(set_error({ msg: err.response.statusText, status: err.response.status }));
+    dispatch(
+      set_error({ msg: err.response.statusText, status: err.response.status })
+    );
   }
 };
 
 // Get profile by ID
 export const getProfileById = (userId) => async (dispatch) => {
-  dispatch(start_fetch())
+  dispatch(start_fetch());
 
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
-
     dispatch(get_profile(res.data));
-
   } catch (err) {
-    dispatch(set_error({ msg: err.response.statusText, status: err.response.status }));
+    dispatch(
+      set_error({ msg: err.response.statusText, status: err.response.status })
+    );
   }
 };
 
@@ -51,7 +62,9 @@ export const getGithubRepos = (username) => async (dispatch) => {
 
     dispatch(get_repos(res.data));
   } catch (err) {
-    dispatch(set_error({ msg: err.response.statusText, status: err.response.status }));
+    dispatch(
+      set_error({ msg: err.response.statusText, status: err.response.status })
+    );
   }
 };
 
@@ -71,7 +84,9 @@ export const createProfile =
       const res = await axios.post('/api/profile', formData, config);
 
       dispatch(get_profile(res.data));
-      dispatch(setAlert(edit ? 'Profile Update' : 'Profile Created', 'success'));
+      dispatch(
+        setAlert(edit ? 'Profile Update' : 'Profile Created', 'success')
+      );
 
       if (!edit) {
         history.push('/mypage');
@@ -83,7 +98,9 @@ export const createProfile =
         errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
       }
 
-      dispatch(set_error({ msg: err.response.statusText, status: err.response.status }));
+      dispatch(
+        set_error({ msg: err.response.statusText, status: err.response.status })
+      );
     }
   };
 
@@ -111,7 +128,9 @@ export const addExperience = (formData, history) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
-    dispatch(set_error({ msg: err.response.statusText, status: err.response?.status }));
+    dispatch(
+      set_error({ msg: err.response.statusText, status: err.response?.status })
+    );
   }
 };
 
@@ -139,7 +158,9 @@ export const addEducation = (formData, history) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
-    dispatch(set_error({ msg: err.response.statusText, status: err.response.status }));
+    dispatch(
+      set_error({ msg: err.response.statusText, status: err.response.status })
+    );
   }
 };
 
@@ -152,7 +173,9 @@ export const deleteExperience = (id) => async (dispatch) => {
     dispatch(update_profile(res.data));
     dispatch(setAlert('Experience Removed', 'success'));
   } catch (err) {
-    dispatch(set_error({ msg: err.response?.statusText, status: err.response?.status }));
+    dispatch(
+      set_error({ msg: err.response?.statusText, status: err.response?.status })
+    );
   }
 };
 
@@ -165,7 +188,9 @@ export const deleteEducation = (id) => async (dispatch) => {
     dispatch(update_profile(res.data));
     dispatch(setAlert('Education Removed', 'success'));
   } catch (err) {
-    dispatch(set_error({ msg: err.response?.statusText, status: err.response?.status }));
+    dispatch(
+      set_error({ msg: err.response?.statusText, status: err.response?.status })
+    );
   }
 };
 
@@ -178,12 +203,14 @@ export const deleteAccount = (id) => async (dispatch) => {
 
       dispatch(setAlert('Your account has been permanantly deleted'));
     } catch (err) {
-      dispatch(set_error({ msg: err.response.statusText, status: err.response.status }));
+      dispatch(
+        set_error({ msg: err.response.statusText, status: err.response.status })
+      );
     }
   }
 };
 
 // Current Tab
 export const handleTabs = (currentTabKey) => (dispatch) => {
-  dispatch(set_currentTab(currentTabKey))
-}
+  dispatch(set_currentTab(currentTabKey));
+};

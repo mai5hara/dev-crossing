@@ -27,6 +27,7 @@ const MypageProfile = ({ profile, auth }) => {
   toast.error(message, {
     theme: 'colored',
     position: 'top-center',
+    toastId: 'mypageProfile'
   })
 
   if(error) {

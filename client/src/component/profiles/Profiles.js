@@ -2,6 +2,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect } from 'react';
 import { Row } from 'antd';
 import { toast } from 'react-toastify';
@@ -21,7 +22,8 @@ const Profiles = () => {
     toast.error(message, {
       theme: 'colored',
       position: 'top-center',
-    })
+      toastId: 'profiles'
+    });
   }
 
   if(error) {
@@ -29,8 +31,12 @@ const Profiles = () => {
   }
 
   useEffect(() => {
+    console.log('aa')
     dispatch(getProfiles())
   }, [dispatch]);
+
+  console.log('profiles',profiles, loading, error)
+
 
   return (
     <div css={profilesContentWrap}>

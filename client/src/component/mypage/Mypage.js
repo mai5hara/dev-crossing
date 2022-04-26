@@ -2,13 +2,14 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect } from 'react';
 import { Tabs, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { profileSelector } from '../../store/features/profileSlice'
-import { authSelector } from '../../store/features/authSlice'
+import { profileSelector } from '../../store/features/profileSlice';
+import { authSelector } from '../../store/features/authSlice';
 import Spinner from '../layout/Spinner';
 import Experience from './Experience';
 import Education from './Education';
@@ -19,24 +20,25 @@ import { btnStyle } from '../ui/Button.style';
 
 const Mypage = () => {
   const { TabPane } = Tabs;
-  const profileData = useSelector(profileSelector)
-  const auth = useSelector(authSelector)
+  const profileData = useSelector(profileSelector);
+  const auth = useSelector(authSelector);
   const history = useHistory();
   const dispatch = useDispatch();
 
   const notify = (message) =>
-  toast.error(message, {
-    theme: 'colored',
-    position: 'top-center',
-  })
+    toast.error(message, {
+      theme: 'colored',
+      position: 'top-center',
+      toastId: 'mypage'
+    });
 
-  if(profileData.error) {
-    notify(profileData.error?.msg)
+  if (profileData.error) {
+    notify(profileData.error?.msg);
   }
 
   const activateTab = (tabKey) => {
-    dispatch(handleTabs(tabKey))
-  }
+    dispatch(handleTabs(tabKey));
+  };
 
   useEffect(() => {
     dispatch(getCurrentProfile());
@@ -44,7 +46,7 @@ const Mypage = () => {
 
   return (
     <div css={mypage}>
-      { profileData.loading ? (
+      {profileData.loading ? (
         <Spinner />
       ) : (
         <>
@@ -57,7 +59,12 @@ const Mypage = () => {
           </p>
           {profileData.profile !== null ? (
             <>
-              <Tabs size="small" activeKey={profileData.tabKey} onChange={(e) => activateTab(e)} type="card">
+              <Tabs
+                size="small"
+                activeKey={profileData.tabKey}
+                onChange={(e) => activateTab(e)}
+                type="card"
+              >
                 <TabPane tab="Profile" key="1">
                   <MypageProfile profile={profileData.profile} auth={auth} />
                 </TabPane>

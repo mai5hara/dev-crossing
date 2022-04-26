@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect } from 'react';
 import { Card } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,6 +35,7 @@ const Profile = ({ match }) => {
     toast.error(message, {
       theme: 'colored',
       position: 'top-center',
+      toastId: 'profile'
     })
   }
 
@@ -44,6 +46,8 @@ const Profile = ({ match }) => {
   useEffect(() => {
     dispatch(getProfileById(match.params.id));
   }, [dispatch, match.params.id]);
+
+  console.log('profile', profile, loading, error)
 
   return (
     <div css={profileContainer}>

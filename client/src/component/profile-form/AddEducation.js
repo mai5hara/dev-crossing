@@ -52,6 +52,7 @@ const AddEducation = ({ history }) => {
   toast.error(message, {
     theme: 'colored',
     position: 'top-center',
+    toastId: 'addEducation'
   })
 
   const onSubmit = async (data) => {

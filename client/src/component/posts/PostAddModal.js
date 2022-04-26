@@ -40,6 +40,7 @@ const PostModal = ({
     toast.error(message, {
       theme: 'colored',
       position: 'top-center',
+      toastId: 'postAddModal'
     })
   }
 

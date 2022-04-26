@@ -25,6 +25,7 @@ const ProfileGithub = ({ username }) => {
   toast.error(message, {
     theme: 'colored',
     position: 'top-center',
+    toastId: 'profileGithub'
   })
 
   if(error) {
@@ -34,6 +35,7 @@ const ProfileGithub = ({ username }) => {
   useEffect(() => {
     dispatch(getGithubRepos(username));
   }, [dispatch, username]);
+
   return (
     <div>
       {loading ? (

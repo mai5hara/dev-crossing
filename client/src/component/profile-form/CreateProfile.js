@@ -1,5 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
@@ -51,6 +52,7 @@ const CreateProfile = ({ history }) => {
   toast.error(message, {
     theme: 'colored',
     position: 'top-center',
+    toastId: 'createProfile'
   })
 
   const onSubmit = async (data) => {

@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { Col, Badge, Card } from 'antd';
 import { Link } from 'react-router-dom';
@@ -53,6 +54,7 @@ const PostItem = ({
     toast.error(message, {
       theme: 'colored',
       position: 'top-center',
+      toastId: 'postItem'
     })
   }
 

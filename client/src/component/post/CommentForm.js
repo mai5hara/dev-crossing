@@ -25,6 +25,7 @@ const CommentForm = ({ postId, error }) => {
     toast.error(message, {
       theme: 'colored',
       position: 'top-center',
+      toastId: 'commonForm'
     })
   }
 

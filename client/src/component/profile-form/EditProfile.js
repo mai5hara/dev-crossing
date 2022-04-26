@@ -56,6 +56,7 @@ const EditProfile = ({
   toast.error(message, {
     theme: 'colored',
     position: 'top-center',
+    toastId: 'editProfile'
   })
   
   const onSubmit = async (data) => {

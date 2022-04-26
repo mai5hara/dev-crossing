@@ -30,6 +30,7 @@ const CommentItem = ({
     toast.error(message, {
       theme: 'colored',
       position: 'top-center',
+      toastId: 'commonItem'
     })
   }
 

@@ -18,11 +18,13 @@ export const profileSlice = createSlice({
       state.loading = true
     },
     get_profiles: (state, action) => {
+      console.log('features get_profiles==')
       state.loading = false
       state.profiles = action.payload
       state.error = null
     },
     get_profile: (state, action) => {
+      console.log('features get_profile==')
       state.loading = false
       state.profile = action.payload
       state.error = null

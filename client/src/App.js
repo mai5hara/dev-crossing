@@ -25,9 +25,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
+        <ToastContainer limit={1}/>
         <Router>
           <>
-            <ToastContainer limit={1} preventDuplicates={false}/>
             <Navbar />
             <Switch>
               <Route exact path="/" component={Profiles} />

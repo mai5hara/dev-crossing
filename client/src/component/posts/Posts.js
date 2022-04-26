@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { Row, Button, Tabs } from 'antd';
 import { toast } from 'react-toastify';
@@ -51,6 +52,7 @@ const Posts = () => {
   toast.error(message, {
     theme: 'colored',
     position: 'top-center',
+    toastId: 'posts'
   })
 
   if (error) {
