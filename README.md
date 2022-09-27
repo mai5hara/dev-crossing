@@ -15,8 +15,8 @@ https://dev-crossing.vercel.app/
 ## Usage
 
 ```bash
-git clone git@github.com:mai5hara/dev-connector.git
-cd dev-connector
+git clone git@github.com:mai5hara/dev-crossing.git
+cd dev-crossing
 npm start
 ```
 
